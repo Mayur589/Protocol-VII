@@ -1,0 +1,72 @@
+[gd_scene load_steps=9 format=3 uid="uid://b82xd0ka5j3du"]
+
+[ext_resource type="Script" uid="uid://c0yy8rm17wn00" path="res://scripts/core/game_root.gd" id="1_js2ae"]
+[ext_resource type="PackedScene" uid="uid://c7nime1rhi13o" path="res://scenes/world/world_map.tscn" id="2_rkoo8"]
+[ext_resource type="PackedScene" uid="uid://bofcknbxentwd" path="res://scenes/ui/terminal_ui.tscn" id="3_jeg0k"]
+[ext_resource type="Script" uid="uid://cnfcwu6al4qrn" path="res://scenes/ui/terminal_ui.gd" id="4_rkoo8"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rkoo8"]
+bg_color = Color(0.101960786, 0.105882354, 0.14901961, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jeg0k"]
+bg_color = Color(0.14117648, 0.15686275, 0.23137255, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.25490198, 0.28235295, 0.40784314, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="SystemFont" id="SystemFont_fddxo"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fddxo"]
+bg_color = Color(0.101960786, 0.105882354, 0.14901961, 1)
+
+[node name="GameRoot" type="Node"]
+script = ExtResource("1_js2ae")
+
+[node name="WorldMap" parent="." instance=ExtResource("2_rkoo8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.004279971, 0)
+
+[node name="TerminalUI" parent="." instance=ExtResource("3_jeg0k")]
+script = ExtResource("4_rkoo8")
+
+[node name="Background" type="PanelContainer" parent="TerminalUI"]
+layout_mode = 0
+offset_right = 1150.0
+offset_bottom = 643.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_rkoo8")
+
+[node name="MarginContainer" type="MarginContainer" parent="TerminalUI/Background"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TerminalUI/Background/MarginContainer"]
+layout_mode = 2
+
+[node name="OutputHistory" type="RichTextLabel" parent="TerminalUI/Background/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+bbcode_enabled = true
+scroll_following = true
+
+[node name="InputBar" type="PanelContainer" parent="TerminalUI/Background/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_jeg0k")
+
+[node name="MarginContainer" type="MarginContainer" parent="TerminalUI/Background/MarginContainer/VBoxContainer/InputBar"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TerminalUI/Background/MarginContainer/VBoxContainer/InputBar/MarginContainer"]
+layout_mode = 2
+
+[node name="PromptLabel" type="Label" parent="TerminalUI/Background/MarginContainer/VBoxContainer/InputBar/MarginContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="CommandInput" type="LineEdit" parent="TerminalUI/Background/MarginContainer/VBoxContainer/InputBar/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = SubResource("SystemFont_fddxo")
+theme_override_styles/normal = SubResource("StyleBoxFlat_fddxo")
