@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="ContinentData" load_steps=2 format=3 uid="uid://qsdkjwmfaqa1"]
+
+[ext_resource type="Script" uid="uid://0iop8gcded50" path="res://scripts/resources/continent_data.gd" id="1_uxpim"]
+
+[resource]
+script = ExtResource("1_uxpim")
+name = "Oceania"
+metadata/_custom_type_script = "uid://0iop8gcded50"

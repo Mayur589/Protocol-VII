@@ -11,9 +11,12 @@ config_version=5
 [application]
 
 config/name="protocol_vii"
-run/main_scene="uid://b82xd0ka5j3du"
+run/main_scene="uid://c70h2q4h1wy7f"
 config/features=PackedStringArray("4.5", "Forward Plus")
-config/icon="res://icon.svg"
+
+[audio]
+
+buses/default_bus_layout=""
 
 [autoload]
 
@@ -23,3 +26,7 @@ GameManager="*res://game_manager.gd"
 
 version_control/plugin_name="GitPlugin"
 version_control/autoload_on_startup=true
+
+[gui]
+
+theme/custom_font="uid://uo8mcb75qqkl"

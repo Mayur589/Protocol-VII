@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="ContinentData" load_steps=2 format=3 uid="uid://bpg3xdgh0mxsm"]
+
+[ext_resource type="Script" uid="uid://0iop8gcded50" path="res://scripts/resources/continent_data.gd" id="1_dvfnq"]
+
+[resource]
+script = ExtResource("1_dvfnq")
+name = "South America"
+metadata/_custom_type_script = "uid://0iop8gcded50"

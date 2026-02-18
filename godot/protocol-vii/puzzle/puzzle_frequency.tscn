@@ -1,0 +1,26 @@
+[gd_scene load_steps=2 format=3 uid="uid://c66i88mbhd68p"]
+
+[ext_resource type="Script" uid="uid://dgrdy7y0dmfvl" path="res://scripts/autoloads/puzzle_frequency.gd" id="1_8l60t"]
+
+[node name="PuzzleFrequency" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_8l60t")
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+layout_mode = 0
+offset_right = 4.0
+offset_bottom = 26.0
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 22.0
+text = "PRESS SPACE TO LOCK SIGNAL"

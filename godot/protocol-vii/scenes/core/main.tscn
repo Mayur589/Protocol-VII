@@ -1,0 +1,51 @@
+[gd_scene load_steps=7 format=3 uid="uid://c70h2q4h1wy7f"]
+
+[ext_resource type="Script" uid="uid://cni8wauhwcn40" path="res://scripts/main.gd" id="1_fgbdc"]
+[ext_resource type="PackedScene" uid="uid://dybroge08ocmu" path="res://scenes/map/global_map.tscn" id="2_i4cec"]
+[ext_resource type="PackedScene" uid="uid://dostug5qxekgc" path="res://scenes/terminal/terminal_interface.tscn" id="3_2dmjg"]
+[ext_resource type="Shader" uid="uid://rpk4brly1tyq" path="res://scenes/ui/shader/main.gdshader" id="4_b6u03"]
+
+[sub_resource type="Environment" id="Environment_2dmjg"]
+background_mode = 3
+glow_enabled = true
+glow_levels/1 = 1.5
+glow_levels/2 = 1.5
+glow_levels/3 = 1.5
+glow_intensity = 1.5
+glow_strength = 0.9
+glow_blend_mode = 0
+glow_hdr_threshold = 0.8
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ebys2"]
+shader = ExtResource("4_b6u03")
+shader_parameter/scanline_count = 150.0
+shader_parameter/vignette_strength = 0.5
+shader_parameter/scanline_opacity = 0.15
+
+[node name="Main" type="Node"]
+script = ExtResource("1_fgbdc")
+
+[node name="MapLayer" type="CanvasLayer" parent="."]
+
+[node name="GlobalMap" parent="MapLayer" instance=ExtResource("2_i4cec")]
+
+[node name="TerminalLayer" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="TerminalInterface" parent="TerminalLayer" instance=ExtResource("3_2dmjg")]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_2dmjg")
+
+[node name="PostProcessing" type="CanvasLayer" parent="."]
+layer = 100
+
+[node name="ColorRect" type="ColorRect" parent="PostProcessing"]
+material = SubResource("ShaderMaterial_ebys2")
+use_parent_material = true
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2

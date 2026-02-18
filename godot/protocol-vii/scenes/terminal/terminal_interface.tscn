@@ -1,0 +1,60 @@
+[gd_scene load_steps=7 format=3 uid="uid://dostug5qxekgc"]
+
+[ext_resource type="Script" uid="uid://blwqitu2gngja" path="res://scripts/autoloads/terminal_interface.gd" id="1_bsjrn"]
+[ext_resource type="Script" uid="uid://c6yvr7phmpbpf" path="res://puzzle/puzzle_manager.gd" id="2_rm2yp"]
+
+[sub_resource type="Theme" id="Theme_rm2yp"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rm2yp"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pj3ob"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_76tj5"]
+
+[node name="TerminalInterface" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_bsjrn")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.019607844, 0.039215688, 0.019607844, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_rm2yp")
+
+[node name="OutputLog" type="RichTextLabel" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+bbcode_enabled = true
+scroll_following = true
+
+[node name="InputLine" type="LineEdit" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_rm2yp")
+theme_override_styles/read_only = SubResource("StyleBoxEmpty_pj3ob")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_76tj5")
+placeholder_text = "> Awaiting command..."
+caret_blink = true
+
+[node name="PuzzleManager" type="Node" parent="."]
+script = ExtResource("2_rm2yp")
