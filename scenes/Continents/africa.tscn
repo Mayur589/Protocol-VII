@@ -1,0 +1,50 @@
+[gd_scene load_steps=6 format=3 uid="uid://cu3wps6xpq855"]
+
+[ext_resource type="Script" uid="uid://dg8f6kerpesn2" path="res://scripts/Continent/africa.gd" id="1_asglq"]
+[ext_resource type="Resource" uid="uid://b5wunxns5bykb" path="res://Resources/Continents/africa.tres" id="2_xv8b3"]
+[ext_resource type="Script" uid="uid://bo6vmd76gct5a" path="res://scripts/panel_container.gd" id="4_m7erd"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_asglq"]
+size = Vector2(390, 411)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_67q4j"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0.32729906, 0.32729906, 0.32729903, 0.8784314)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_blend = true
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[node name="Africa" type="Node2D"]
+script = ExtResource("1_asglq")
+con_res = ExtResource("2_xv8b3")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="Area2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(3, 23.5)
+shape = SubResource("RectangleShape2D_asglq")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+offset_left = -64.0
+offset_top = -64.0
+offset_right = 206.0
+offset_bottom = 151.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_67q4j")
+script = ExtResource("4_m7erd")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="PanelContainer"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 20
+bbcode_enabled = true
+fit_content = true

@@ -1,0 +1,70 @@
+[gd_scene load_steps=6 format=3 uid="uid://dm34fmwop7211"]
+
+[ext_resource type="Script" uid="uid://cudk4hlwq0npb" path="res://scripts/computer.gd" id="1_18hgq"]
+[ext_resource type="Texture2D" uid="uid://dv1msdudgsxlx" path="res://spites/background.png" id="1_gxl5a"]
+[ext_resource type="Texture2D" uid="uid://cw7qeydngpdvd" path="res://spites/terminal.png" id="3_gcbbq"]
+[ext_resource type="Texture2D" uid="uid://ddqfe0kk133no" path="res://spites/map.png" id="4_jr5mb"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jr5mb"]
+size = Vector2(168.40979, 173.25235)
+
+[node name="ComputerScreen" type="Node2D"]
+script = ExtResource("1_18hgq")
+
+[node name="Visuals" type="Node2D" parent="."]
+
+[node name="TextureRect" type="TextureRect" parent="Visuals"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -10.0
+offset_top = -8.0
+offset_right = 1929.0
+offset_bottom = 1088.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+texture = ExtResource("1_gxl5a")
+expand_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Visuals/TextureRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 0.5
+offset_right = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Terminal" type="Area2D" parent="Visuals/TextureRect/VBoxContainer"]
+position = Vector2(165, 148)
+
+[node name="Sprite2D" type="Sprite2D" parent="Visuals/TextureRect/VBoxContainer/Terminal"]
+modulate = Color(0.8, 0.8, 0.8, 1)
+scale = Vector2(0.3, 0.344)
+texture = ExtResource("3_gcbbq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Visuals/TextureRect/VBoxContainer/Terminal"]
+visible = false
+shape = SubResource("RectangleShape2D_jr5mb")
+
+[node name="Map" type="Area2D" parent="Visuals/TextureRect/VBoxContainer"]
+position = Vector2(171, 379)
+
+[node name="Sprite2D" type="Sprite2D" parent="Visuals/TextureRect/VBoxContainer/Map"]
+modulate = Color(0.79836637, 0.7983663, 0.7983663, 1)
+scale = Vector2(0.3, 0.344)
+texture = ExtResource("4_jr5mb")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Visuals/TextureRect/VBoxContainer/Map"]
+visible = false
+shape = SubResource("RectangleShape2D_jr5mb")
+
+[connection signal="input_event" from="Visuals/TextureRect/VBoxContainer/Terminal" to="." method="_on_terminal_input_event"]
+[connection signal="mouse_entered" from="Visuals/TextureRect/VBoxContainer/Terminal" to="." method="_on_terminal_mouse_entered"]
+[connection signal="mouse_exited" from="Visuals/TextureRect/VBoxContainer/Terminal" to="." method="_on_terminal_mouse_exited"]
+[connection signal="input_event" from="Visuals/TextureRect/VBoxContainer/Map" to="." method="_on_map_input_event"]
+[connection signal="mouse_entered" from="Visuals/TextureRect/VBoxContainer/Map" to="." method="_on_map_mouse_entered"]
+[connection signal="mouse_exited" from="Visuals/TextureRect/VBoxContainer/Map" to="." method="_on_map_mouse_exited"]

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Continent" load_steps=2 format=3 uid="uid://c5xfc5eelhdy3"]
+
+[ext_resource type="Script" uid="uid://b04jjjy5cksee" path="res://Resources/continent.gd" id="1_yrjeq"]
+
+[resource]
+script = ExtResource("1_yrjeq")
+Name = "Europe"
+Military_Power = 7
+Cyber_strength = 8
+Political_influence = 9
+metadata/_custom_type_script = "uid://b04jjjy5cksee"

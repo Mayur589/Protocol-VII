@@ -1,0 +1,14 @@
+RichTextLabel
+PanelContainer
+CanvasLayer
+Node2D
+Sprite2D
+Button
+HBoxContainer
+Label
+VBoxContainer
+TextureRect
+Panel
+MarginContainer
+PopupPanel
+Area2D

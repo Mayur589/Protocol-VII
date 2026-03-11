@@ -1,0 +1,33 @@
+[gd_scene load_steps=3 format=3 uid="uid://dw8tdldyqxroe"]
+
+[ext_resource type="Script" uid="uid://bx5hn17dfrg10" path="res://scripts/tooltip.gd" id="1_7dicn"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7dicn"]
+bg_color = Color(0.0784314, 0.0784314, 0.0784314, 0.823529)
+border_width_left = 4
+border_color = Color(0, 0.811765, 0.811765, 1)
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+expand_margin_left = 5.0
+expand_margin_top = 5.0
+expand_margin_right = 5.0
+expand_margin_bottom = 5.0
+
+[node name="Tooltip" type="CanvasLayer"]
+layer = 128
+script = ExtResource("1_7dicn")
+
+[node name="displayContainer" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(240, 0)
+offset_right = 240.0
+offset_bottom = 23.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_7dicn")
+
+[node name="message" type="RichTextLabel" parent="displayContainer"]
+layout_mode = 2
+mouse_filter = 2
+bbcode_enabled = true
+text = "Testing Content"
+fit_content = true
+autowrap_mode = 2

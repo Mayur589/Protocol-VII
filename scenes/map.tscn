@@ -1,0 +1,61 @@
+[gd_scene load_steps=12 format=3 uid="uid://b0brvycigcx0x"]
+
+[ext_resource type="Script" uid="uid://dsmdkbyo5a5fi" path="res://scripts/map.gd" id="1_paxxb"]
+[ext_resource type="PackedScene" uid="uid://s2r18fvrknxt" path="res://scenes/Continents/asia.tscn" id="2_jh32y"]
+[ext_resource type="PackedScene" uid="uid://cu3wps6xpq855" path="res://scenes/Continents/africa.tscn" id="3_be0no"]
+[ext_resource type="PackedScene" uid="uid://bcwrlti3yp66n" path="res://scenes/Continents/antarctica.tscn" id="4_blm8a"]
+[ext_resource type="PackedScene" uid="uid://bq821np417q8e" path="res://scenes/Continents/europe.tscn" id="5_mlgqr"]
+[ext_resource type="PackedScene" uid="uid://c5rl8hyxtipew" path="res://scenes/Continents/north_america.tscn" id="6_wslke"]
+[ext_resource type="PackedScene" uid="uid://chd43emwsajdx" path="res://scenes/Continents/oceania.tscn" id="7_gw3fx"]
+[ext_resource type="PackedScene" uid="uid://d3wcewcaiph71" path="res://scenes/Continents/south_america.tscn" id="8_n1psn"]
+[ext_resource type="Texture2D" uid="uid://lxoimq4f0day" path="res://spites/backArrow.png" id="9_be0no"]
+[ext_resource type="Texture2D" uid="uid://dw125koxofkpn" path="res://spites/worldMap.jpg" id="10_blm8a"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_blm8a"]
+size = Vector2(276, 138)
+
+[node name="Map" type="Node2D"]
+script = ExtResource("1_paxxb")
+
+[node name="Asia" parent="." instance=ExtResource("2_jh32y")]
+position = Vector2(1353, 376)
+
+[node name="Africa" parent="." instance=ExtResource("3_be0no")]
+position = Vector2(972, 622)
+
+[node name="antarctica" parent="." instance=ExtResource("4_blm8a")]
+position = Vector2(1080, 1053)
+
+[node name="Europe" parent="." instance=ExtResource("5_mlgqr")]
+position = Vector2(995, 331)
+
+[node name="North_America" parent="." instance=ExtResource("6_wslke")]
+position = Vector2(336, 398)
+
+[node name="Oceania" parent="." instance=ExtResource("7_gw3fx")]
+position = Vector2(1607, 763)
+
+[node name="South_America" parent="." instance=ExtResource("8_n1psn")]
+position = Vector2(515, 754)
+
+[node name="BackArrow" type="Area2D" parent="."]
+position = Vector2(1755, 100)
+scale = Vector2(0.5, 0.5)
+
+[node name="Sprite2D" type="Sprite2D" parent="BackArrow"]
+modulate = Color(0.8037286, 0.7974856, 0.8124361, 1)
+texture = ExtResource("9_be0no")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BackArrow"]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_blm8a")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = -1
+position = Vector2(960, 539.99994)
+scale = Vector2(0.3657143, 0.3085714)
+texture = ExtResource("10_blm8a")
+
+[connection signal="input_event" from="BackArrow" to="." method="_on_back_arrow_input_event"]
+[connection signal="mouse_entered" from="BackArrow" to="." method="_on_back_arrow_mouse_entered"]
+[connection signal="mouse_exited" from="BackArrow" to="." method="_on_back_arrow_mouse_exited"]

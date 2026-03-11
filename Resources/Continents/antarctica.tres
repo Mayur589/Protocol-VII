@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="Continent" load_steps=2 format=3 uid="uid://bwtcslg0q8ug1"]
+
+[ext_resource type="Script" uid="uid://b04jjjy5cksee" path="res://Resources/continent.gd" id="1_bgo0u"]
+
+[resource]
+script = ExtResource("1_bgo0u")
+Name = "Antarctica"
+Military_Power = 5
+Cyber_strength = 6
+Political_influence = 4
+Puzzles = null
+metadata/_custom_type_script = "uid://b04jjjy5cksee"

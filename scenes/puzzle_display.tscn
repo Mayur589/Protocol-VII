@@ -1,0 +1,110 @@
+[gd_scene load_steps=3 format=3 uid="uid://b8pk7swrsrxc8"]
+
+[ext_resource type="Script" uid="uid://c6wghe2q0f5ct" path="res://scripts/Continent/puzzle_display.gd" id="1_7j8dr"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5rhac"]
+bg_color = Color(0.9507603, 0.40140206, 0.31952628, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.06879829, 0.068798274, 0.068798214, 1)
+border_blend = true
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="puzzle_display" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 2
+script = ExtResource("1_7j8dr")
+
+[node name="Columns" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 700.0
+offset_top = 500.0
+offset_right = 1220.0
+offset_bottom = 580.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 2
+theme_override_constants/separation = 140
+
+[node name="Tier 1" type="VBoxContainer" parent="Columns"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="Columns/Tier 1"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_5rhac")
+
+[node name="Button" type="Button" parent="Columns/Tier 1/PanelContainer"]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+
+[node name="TextureRect" type="TextureRect" parent="Columns/Tier 1/PanelContainer"]
+z_index = -1
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 2
+
+[node name="Tier 2" type="VBoxContainer" parent="Columns"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="Columns/Tier 2"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_5rhac")
+
+[node name="Button" type="Button" parent="Columns/Tier 2/PanelContainer"]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+
+[node name="TextureRect" type="TextureRect" parent="Columns/Tier 2/PanelContainer"]
+z_index = -1
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 2
+
+[node name="Tier 3" type="VBoxContainer" parent="Columns"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="Columns/Tier 3"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_5rhac")
+
+[node name="Button" type="Button" parent="Columns/Tier 3/PanelContainer"]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+
+[node name="TextureRect" type="TextureRect" parent="Columns/Tier 3/PanelContainer"]
+z_index = -1
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 2
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 25.0
+offset_top = 25.0
+offset_right = 1895.0
+offset_bottom = 1055.0
+mouse_filter = 2

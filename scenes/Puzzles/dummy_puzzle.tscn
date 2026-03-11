@@ -1,0 +1,61 @@
+[gd_scene load_steps=3 format=3 uid="uid://cv3g0xh2583b1"]
+
+[ext_resource type="Script" uid="uid://dgdwyd7e6ng78" path="res://dummy_puzzle.gd" id="1_aghd5"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ook5d"]
+content_margin_left = 300.0
+content_margin_right = 300.0
+content_margin_bottom = 100.0
+bg_color = Color(0.004019165, 0.004019165, 0.004019165, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[node name="DummyPuzzle" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 7.0
+offset_top = 3.0
+offset_right = 7.0
+offset_bottom = 3.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_aghd5")
+metadata/_edit_horizontal_guides_ = [-995.0]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 254
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 116
+text = "Choose the option"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 244
+
+[node name="WinButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 116
+theme_override_styles/normal = SubResource("StyleBoxFlat_ook5d")
+text = "Win"
+
+[node name="LoseButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 116
+theme_override_styles/normal = SubResource("StyleBoxFlat_ook5d")
+text = "Lose
+"

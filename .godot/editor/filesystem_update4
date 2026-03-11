@@ -1,0 +1,14 @@
+res://scripts/Continent/africa.gd
+res://scenes/Continents/antarctica.tscn
+res://scenes/tooltip.tscn
+res://scripts/tooltip.gd
+res://scripts/Continent/antarctica.gd
+res://scripts/Continent/asia.gd
+res://scripts/Continent/europe.gd
+res://scripts/Continent/general_continent.gd
+res://scripts/Continent/north_america.gd
+res://scripts/Continent/oceania.gd
+res://scripts/Continent/south_america.gd
+res://scenes/Continents/africa.tscn
+res://Resources/Continents/africa.tres
+res://scenes/Puzzles/dummy_puzzle.tscn

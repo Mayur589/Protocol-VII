@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Continent" load_steps=2 format=3 uid="uid://b5wunxns5bykb"]
+
+[ext_resource type="Script" uid="uid://b04jjjy5cksee" path="res://Resources/continent.gd" id="1_faoua"]
+
+[resource]
+script = ExtResource("1_faoua")
+Name = "Africa"
+Military_Power = 3
+Cyber_strength = 2
+Political_influence = 4
+metadata/_custom_type_script = "uid://b04jjjy5cksee"

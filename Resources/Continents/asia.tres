@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Continent" load_steps=2 format=3 uid="uid://bdt2b2pvw8m2x"]
+
+[ext_resource type="Script" uid="uid://b04jjjy5cksee" path="res://Resources/continent.gd" id="1_b33i0"]
+
+[resource]
+script = ExtResource("1_b33i0")
+Name = "Asia"
+Military_Power = 5
+Cyber_strength = 5
+Political_influence = 5
+metadata/_custom_type_script = "uid://b04jjjy5cksee"

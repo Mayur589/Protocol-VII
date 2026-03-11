@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Continent" load_steps=2 format=3 uid="uid://c17xug3or555p"]
+
+[ext_resource type="Script" uid="uid://b04jjjy5cksee" path="res://Resources/continent.gd" id="1_gm7i7"]
+
+[resource]
+script = ExtResource("1_gm7i7")
+Name = "Oceania"
+Military_Power = 6
+Cyber_strength = 4
+Political_influence = 3
+metadata/_custom_type_script = "uid://b04jjjy5cksee"

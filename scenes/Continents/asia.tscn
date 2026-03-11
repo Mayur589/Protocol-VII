@@ -1,0 +1,53 @@
+[gd_scene load_steps=6 format=3 uid="uid://s2r18fvrknxt"]
+
+[ext_resource type="Script" uid="uid://d4drd3hkqwfs1" path="res://scripts/Continent/asia.gd" id="1_y8tg5"]
+[ext_resource type="Resource" uid="uid://bdt2b2pvw8m2x" path="res://Resources/Continents/asia.tres" id="2_ja5mo"]
+[ext_resource type="Script" uid="uid://bo6vmd76gct5a" path="res://scripts/panel_container.gd" id="4_ja5mo"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q3u0u"]
+size = Vector2(459, 386)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y8tg5"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0.32729906, 0.32729906, 0.32729903, 0.8784314)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_blend = true
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[node name="Asia" type="Node2D"]
+script = ExtResource("1_y8tg5")
+con_res = ExtResource("2_ja5mo")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="Area2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(111.5, 37)
+shape = SubResource("RectangleShape2D_q3u0u")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+offset_left = -64.0
+offset_top = -64.0
+offset_right = 206.0
+offset_bottom = 151.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_y8tg5")
+script = ExtResource("4_ja5mo")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="PanelContainer"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 20
+bbcode_enabled = true
+fit_content = true
+
+[connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]
+[connection signal="mouse_exited" from="Area2D" to="." method="_on_area_2d_mouse_exited"]

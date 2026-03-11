@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Continent" load_steps=2 format=3 uid="uid://133saewyqc4p"]
+
+[ext_resource type="Script" uid="uid://b04jjjy5cksee" path="res://Resources/continent.gd" id="1_k1du4"]
+
+[resource]
+script = ExtResource("1_k1du4")
+Name = "South_America"
+Military_Power = 5
+Cyber_strength = 5
+Political_influence = 5
+metadata/_custom_type_script = "uid://b04jjjy5cksee"
