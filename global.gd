@@ -1,6 +1,7 @@
 extends Node
 
 var domination: int = 0
+var total_puzzle_completed: int = 0
 var penalty: int = 0
 var player_turn: bool = true
 var current_continent: String
@@ -29,7 +30,7 @@ var continent_accuire = {
 	"South_America": [0, false],
 	"Oceania": [0, false],
 }
-# LOCKED → UNLOCKED → COMPLETED
+
 var player_progress: Dictionary = {
 	ASIA: _empty_difficulty_dict(),
 	EUROPE: _empty_difficulty_dict(),
@@ -56,7 +57,6 @@ func _empty_difficulty_dict() -> Dictionary:
 	#"res://scenes/Puzzles/medium_1.tscn",
 	#"res://scenes/Puzzles/medium_2.tscn",
 	#"res://scenes/Puzzles/medium_3.tscn",
-	#"res://scenes/Puzzles/medium_4.tscn",
 #]
 #
 #var puzzles_hard: Array[String] = [
@@ -213,19 +213,28 @@ func puzzle_won() -> void:
 	var diff = current_puzzle_diff
 	var id = current_puzzle_id
 	
-	# Mark completed and give player a reward
+	# 1. Mark completed
 	player_progress[continent][diff][id]["state"] = "COMPLETED"
+	var puzzle_completed: int = continent_accuire[continent][0] + 1
+	var continent_completed: bool
+	if puzzle_completed >= 3:
+		continent_completed = true
+	else:
+		continent_completed = false
+	
+	continent_accuire[continent] = [puzzle_completed, continent_completed ]
+	
+	# 2. Give points and CLAMP to max 100
 	domination += 5
+	domination = clampi(domination, 0, 100)
 	
 	_unlock_next(continent, diff, id)
-	_trigger_omni_turn(true) # Pass 'true' because player won
-
+	_trigger_update_puzzle_completed()
+	_trigger_omni_turn(true)
 
 func puzzle_lost() -> void:
-	# Keep the puzzle UNLOCKED so they can try again, but penalize them
-	penalty += 5
-	_trigger_omni_turn(false) # Pass 'false' because player lost
-
+	penalty += 5 
+	_trigger_omni_turn(false)
 
 func _unlock_next(continent: String, difficulty: String, completed_id: String) -> void:
 	# Define the exact order of progression
@@ -261,54 +270,56 @@ func _unlock_next(continent: String, difficulty: String, completed_id: String) -
 				_conquer_continent(continent)
 			break
 
+func _trigger_update_puzzle_completed() -> void:
+	var temp: int = 0
+	for cont in continent_accuire.keys():
+		temp += continent_accuire[cont][0] 
+	total_puzzle_completed = temp
 
 func _trigger_omni_turn(player_won: bool) -> void:
 	player_turn = false
 	print("OMNI IS ANALYZING THREAT...")
 	
-	# Omni Logic: Omni reacts to the player's actions
 	if player_won:
-		# Omni notices the breach and increases awareness/trace routing
 		omni_awareness += 3
 		print("Omni trace increased to: ", omni_awareness, "%")
 	else:
-		# Omni capitalizes on the player's failed attempt
 		omni_awareness += 12
-		domination = max(0, domination - 5) # Lose some domination
-		print("Omni reinforced firewalls.")
+		domination -= 5
+		print("Omni reinforced firewalls. Domination lost!")
 	
-	# Check for Game Over condition
-	if omni_awareness >= 100:
-		print("GAME OVER - Omni has traced your location.")
-		# get_tree().change_scene_to_file("res://scenes/game_over.tscn")
-		return
-		
+	# 1. Clamp BOTH values to ensure they stay between 0 and 100 safely
+	omni_awareness = clampi(omni_awareness, 0, 100)
+	domination = clampi(domination, 0, 100)
+	
 	player_turn = true
 	
+	# 2. Run the master check to see if the game is over
+	_check_game_state()
+
 func _conquer_continent(continent: String) -> void:
-	# Your continent_accuire dictionary stores an array: [points/value, is_conquered]
-	if continent_accuire.has(continent):
-		# Mark it as true (conquered)
+	# Check if it exists AND hasn't been conquered yet
+	if continent_accuire.has(continent) and continent_accuire[continent][1] == false:
 		continent_accuire[continent][1] = true
+		
+		# Give a massive Domination bonus for securing the continent!
+		domination += 15
+		domination = clampi(domination, 0, 100)
+		
 		print(">>> " + continent.to_upper() + " SECURED. OMNI PRESENCE PURGED.")
-	
-	_check_world_domination()
 
-
-func _check_world_domination() -> void:
-	var total_domination = true
-	
-	# Loop through every continent to see if ANY are still unconquered
-	for cont in continent_accuire.keys():
-		if continent_accuire[cont][1] == false:
-			total_domination = false
-			break
-	
-	# If the loop finishes and total_domination is STILL true, the player won!
-	if total_domination:
+func _check_game_state() -> void:
+	# LOSS CONDITION: Omni finds you first
+	if omni_awareness >= 100:
+		print("=======================================")
+		print(" GAME OVER - Omni has traced your location.")
+		print("=======================================")
+		# get_tree().change_scene_to_file("res://scenes/game_over.tscn")
+		return # Stop running code if they lost
+		
+	# WIN CONDITION: You take over the network
+	if domination >= 100:
 		print("=======================================")
 		print(" GLOBAL DOMINATION ACHIEVED! YOU WIN! ")
 		print("=======================================")
-		
-		# Uncomment this when you build your victory screen!
 		# get_tree().change_scene_to_file("res://scenes/victory.tscn")

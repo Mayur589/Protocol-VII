@@ -5,6 +5,7 @@ extends Control
 	$"Columns/Tier 2/PanelContainer/Button",
 	$"Columns/Tier 3/PanelContainer/Button",
 ]
+@onready var back_arrow: Area2D = $BackArrow
 
 
 func _ready() -> void:
@@ -46,4 +47,19 @@ func _on_puzzle_pressed(diff: String, puzzle_id: String):
 	var puzzle_data = Global.player_progress[continent][diff][puzzle_id]
 	get_tree().change_scene_to_file(puzzle_data["path"])
 	
-	
+
+
+func _on_back_arrow_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_LEFT and event.is_pressed():
+			get_tree().change_scene_to_file("res://scenes/map.tscn")
+
+
+func _on_back_arrow_mouse_entered() -> void:
+	back_arrow.modulate = Color.WHITE
+	Input.set_default_cursor_shape(Input.CURSOR_POINTING_HAND)
+
+
+func _on_back_arrow_mouse_exited() -> void:
+	back_arrow.modulate = Color("cdcbcf")
+	Input.set_default_cursor_shape(Input.CURSOR_ARROW)

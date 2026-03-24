@@ -1,14 +1,15 @@
-RichTextLabel
-PanelContainer
-CanvasLayer
-Node2D
-Sprite2D
-Button
-HBoxContainer
+TextureProgressBar
+ProgressBar
+Control
+LineEdit
 Label
+HBoxContainer
+RichTextLabel
 VBoxContainer
-TextureRect
-Panel
 MarginContainer
-PopupPanel
-Area2D
+CanvasLayer
+Sprite2D
+StatusIndicator
+Container
+LineEdit      - Matches the "text" keyword.
+Node2D

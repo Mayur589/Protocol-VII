@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://b0brvycigcx0x"]
+[gd_scene load_steps=13 format=3 uid="uid://b0brvycigcx0x"]
 
 [ext_resource type="Script" uid="uid://dsmdkbyo5a5fi" path="res://scripts/map.gd" id="1_paxxb"]
 [ext_resource type="PackedScene" uid="uid://s2r18fvrknxt" path="res://scenes/Continents/asia.tscn" id="2_jh32y"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://d3wcewcaiph71" path="res://scenes/Continents/south_america.tscn" id="8_n1psn"]
 [ext_resource type="Texture2D" uid="uid://lxoimq4f0day" path="res://spites/backArrow.png" id="9_be0no"]
 [ext_resource type="Texture2D" uid="uid://dw125koxofkpn" path="res://spites/worldMap.jpg" id="10_blm8a"]
+[ext_resource type="PackedScene" uid="uid://cw64kr67rctjk" path="res://scenes/playerprogressbar.tscn" id="11_mlgqr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_blm8a"]
 size = Vector2(276, 138)
@@ -55,6 +56,10 @@ z_index = -1
 position = Vector2(960, 539.99994)
 scale = Vector2(0.3657143, 0.3085714)
 texture = ExtResource("10_blm8a")
+
+[node name="Playerprogressbar" parent="." instance=ExtResource("11_mlgqr")]
+position = Vector2(631.00006, 17)
+scale = Vector2(0.4, 0.279)
 
 [connection signal="input_event" from="BackArrow" to="." method="_on_back_arrow_input_event"]
 [connection signal="mouse_entered" from="BackArrow" to="." method="_on_back_arrow_mouse_entered"]

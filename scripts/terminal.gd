@@ -92,30 +92,6 @@ func command_interpreter(text) -> void:
 			print("Invalid command")
 
 
-#func init_puzzle(continent_name: String):
-	#var priority = ["EASY", "MEDIUM", "HARD"]
-	#var puzzles = Global.continent_puzzles[continent_name]
-	#var sorted_puzzles = {}
-	#for key in priority:
-		#if puzzles.has(key):
-			#sorted_puzzles[key] = puzzles[key]
-	#
-	#for diff in sorted_puzzles:
-		#for puzzle in sorted_puzzles[diff]:
-			#Global.player_progress[continent_name][diff][puzzle] = [sorted_puzzles[diff][puzzle], false]
-				#
-	#for diff in sorted_puzzles:
-		#for puzzle in sorted_puzzles[diff]:
-			#if !Global.player_progress[continent_name][diff][puzzle][1]:
-				#print(puzzle)
-				#return
-#
-#func _give_name(puzzle_addr: String, continent_name: String) -> String:
-	## res://scenes/Puzzles/hard_1.tscn -> 
-	#var addr_part = puzzle_addr.split("/")
-	#var diff = addr_part[-1].split(".")[0] # hard_1
-	#var Name = continent_name.to_lower() + "_" + diff[0] + diff[-1] #name_h1
-	#return Name
 	
 	
 	

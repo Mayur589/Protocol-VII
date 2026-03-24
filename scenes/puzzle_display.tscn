@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://b8pk7swrsrxc8"]
+[gd_scene load_steps=5 format=3 uid="uid://b8pk7swrsrxc8"]
 
 [ext_resource type="Script" uid="uid://c6wghe2q0f5ct" path="res://scripts/Continent/puzzle_display.gd" id="1_7j8dr"]
+[ext_resource type="Texture2D" uid="uid://lxoimq4f0day" path="res://spites/backArrow.png" id="2_7j8dr"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5rhac"]
 bg_color = Color(0.9507603, 0.40140206, 0.31952628, 1)
@@ -14,6 +15,9 @@ corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5vd5b"]
+size = Vector2(276, 138)
 
 [node name="puzzle_display" type="Control"]
 layout_mode = 3
@@ -108,3 +112,19 @@ offset_top = 25.0
 offset_right = 1895.0
 offset_bottom = 1055.0
 mouse_filter = 2
+
+[node name="BackArrow" type="Area2D" parent="."]
+position = Vector2(1755, 100)
+scale = Vector2(0.5, 0.5)
+
+[node name="Sprite2D" type="Sprite2D" parent="BackArrow"]
+modulate = Color(0.8037286, 0.7974856, 0.8124361, 1)
+texture = ExtResource("2_7j8dr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BackArrow"]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_5vd5b")
+
+[connection signal="input_event" from="BackArrow" to="." method="_on_back_arrow_input_event"]
+[connection signal="mouse_entered" from="BackArrow" to="." method="_on_back_arrow_mouse_entered"]
+[connection signal="mouse_exited" from="BackArrow" to="." method="_on_back_arrow_mouse_exited"]
