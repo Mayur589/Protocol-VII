@@ -1,0 +1,195 @@
+[gd_scene load_steps=14 format=3 uid="uid://dwhj1o46rmgft"]
+
+[ext_resource type="FontFile" uid="uid://dp5f5f5yei6ty" path="res://Fonts/Battlenet.ttf" id="1_81rff"]
+[ext_resource type="Script" uid="uid://dru6v3cpmnyqc" path="res://scripts/desktop.gd" id="1_veafp"]
+[ext_resource type="Texture2D" uid="uid://rx70dp5f80qh" path="res://spites/PatchRegular.png" id="2_ox5hf"]
+[ext_resource type="Texture2D" uid="uid://dtenviedqswac" path="res://spites/Flag.png" id="3_dcrhm"]
+[ext_resource type="Texture2D" uid="uid://ctbqq6e3hf0nr" path="res://spites/PatchInverted.png" id="3_ox5hf"]
+[ext_resource type="Shader" uid="uid://q271m6wpn8ab" path="res://Shader/desktop.gdshader" id="5_dcrhm"]
+[ext_resource type="Texture2D" uid="uid://ddqfe0kk133no" path="res://spites/map.png" id="6_6ajoh"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6ajoh"]
+bg_color = Color(0.7921569, 0.7921569, 0.7921569, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ox5hf"]
+bg_color = Color(1, 1, 1, 1)
+draw_center = false
+border_width_top = 1
+border_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_veafp"]
+content_margin_left = 12.0
+content_margin_top = 12.0
+content_margin_right = 12.0
+content_margin_bottom = 12.0
+texture = ExtResource("2_ox5hf")
+texture_margin_left = 1.0
+texture_margin_top = 1.0
+texture_margin_right = 1.0
+texture_margin_bottom = 1.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_dcrhm"]
+content_margin_left = 12.0
+content_margin_top = 12.0
+content_margin_right = 12.0
+content_margin_bottom = 12.0
+texture = ExtResource("3_ox5hf")
+texture_margin_left = 1.0
+texture_margin_top = 1.0
+texture_margin_right = 1.0
+texture_margin_bottom = 1.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ox5hf"]
+texture = ExtResource("3_ox5hf")
+texture_margin_left = 1.0
+texture_margin_top = 1.0
+texture_margin_right = 1.0
+texture_margin_bottom = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6ajoh"]
+shader = ExtResource("5_dcrhm")
+shader_parameter/SCREEN_HEIGHT = 1080.0
+
+[node name="Desktop" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_veafp")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.007843138, 0.49803922, 0.5529412, 1)
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -105.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_6ajoh")
+
+[node name="Panel" type="Panel" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 4.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ox5hf")
+
+[node name="startButton" type="Button" parent="Panel"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 14.0
+offset_right = 245.0
+offset_bottom = 96.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_81rff")
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxTexture_veafp")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_dcrhm")
+theme_override_styles/hover = SubResource("StyleBoxTexture_dcrhm")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_dcrhm")
+keep_pressed_outside = true
+text = "Start"
+icon = ExtResource("3_dcrhm")
+expand_icon = true
+
+[node name="TimePanel" type="Panel" parent="Panel"]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -257.0
+offset_top = 14.0
+offset_right = -20.0
+offset_bottom = -9.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_ox5hf")
+
+[node name="Label" type="Label" parent="Panel/TimePanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_81rff")
+theme_override_font_sizes/font_size = 65
+text = "12:30 AM"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="scalelines" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_6ajoh")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Map" type="Button" parent="."]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 0
+offset_left = 59.0
+offset_top = 79.0
+offset_right = 178.0
+offset_bottom = 189.0
+size_flags_horizontal = 2
+size_flags_vertical = 0
+
+[node name="TextureRect" type="TextureRect" parent="Map"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("6_6ajoh")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="annoyWindow" type="Window" parent="."]
+oversampling_override = 1.0
+title = "Annoyed Alert!!!"
+initial_position = 1
+size = Vector2i(300, 200)
+theme_override_fonts/title_font = ExtResource("1_81rff")
+theme_override_font_sizes/title_font_size = 40
+
+[node name="RichTextLabel" type="RichTextLabel" parent="annoyWindow"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+theme_override_fonts/normal_font = ExtResource("1_81rff")
+theme_override_fonts/bold_font = ExtResource("1_81rff")
+theme_override_font_sizes/normal_font_size = 23
+theme_override_font_sizes/bold_font_size = 35
+bbcode_enabled = true
+text = "[color=#ffffff][b]PLEASE [/b][/color][color=#ff2020][b]STOP[/b][/color][color=#ffffff][b] PRESSING[/b][/color]
+[center][color=#ffffff][b]START BUTTON[/b][/color]"
+autowrap_trim_flags = 128
+horizontal_alignment = 1
+vertical_alignment = 1

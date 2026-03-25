@@ -58,8 +58,7 @@ scale = Vector2(0.3657143, 0.3085714)
 texture = ExtResource("10_blm8a")
 
 [node name="Playerprogressbar" parent="." instance=ExtResource("11_mlgqr")]
-position = Vector2(631.00006, 17)
-scale = Vector2(0.4, 0.279)
+position = Vector2(649, 25)
 
 [connection signal="input_event" from="BackArrow" to="." method="_on_back_arrow_input_event"]
 [connection signal="mouse_entered" from="BackArrow" to="." method="_on_back_arrow_mouse_entered"]

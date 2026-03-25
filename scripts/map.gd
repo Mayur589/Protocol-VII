@@ -49,4 +49,4 @@ func _on_back_arrow_mouse_exited() -> void:
 func _on_back_arrow_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.is_pressed():
-			get_tree().change_scene_to_file("res://scenes/computer.tscn")
+			get_tree().change_scene_to_file("res://scenes/desktop.tscn")

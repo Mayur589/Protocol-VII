@@ -5,12 +5,21 @@
 [ext_resource type="Texture2D" uid="uid://dwokvwne07w3v" path="res://spites/progress_under.png" id="2_tsr5r"]
 
 [node name="Playerprogressbar" type="Node2D"]
+scale = Vector2(0.5, 0.5)
 script = ExtResource("1_p47kh")
 
 [node name="playerProgress" type="TextureProgressBar" parent="."]
-offset_right = 1190.0
-offset_bottom = 202.0
+offset_right = 1186.0
+offset_bottom = 102.0
 max_value = 21.0
 nine_patch_stretch = true
 texture_under = ExtResource("2_tsr5r")
 texture_progress = ExtResource("1_ssn65")
+
+[node name="progressScore" type="RichTextLabel" parent="."]
+offset_top = 82.0
+offset_right = 1186.0
+offset_bottom = 283.0
+theme_override_font_sizes/normal_font_size = 90
+text = "Progress: 0%"
+horizontal_alignment = 1
