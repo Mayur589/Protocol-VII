@@ -26,7 +26,7 @@ func _on_continent_input(_viewport: Node, event: InputEvent, _shape_idx: int, co
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.is_pressed():
 		if continent.con_res != null:
 			Global.current_continent = continent.con_res.Name
-			get_tree().change_scene_to_file("res://scenes/puzzle_display.tscn")
+			get_tree().change_scene_to_file("res://scenes/UI/puzzle_panel.tscn")
 			
 # We bind the specific Sprite2D, so we know exactly which one to color
 func _on_continent_hover(sprite: Sprite2D) -> void:

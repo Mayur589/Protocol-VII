@@ -1,14 +1,14 @@
-RichTextLabel
-TextureRect
 Panel
-Window
-ColorRect
-Button
-HBoxContainer
-Label
-TextureProgressBar
-ProgressBar
-Control
-LineEdit
-VBoxContainer
 MarginContainer
+Label
+TextureRect
+CanvasLayer
+Button
+VFlowContainer
+HBoxContainer
+Label      - Matches the "text" keyword.
+HFlowContainer
+VBoxContainer
+PanelContainer
+Control
+RichTextLabel

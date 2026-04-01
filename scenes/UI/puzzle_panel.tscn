@@ -1,0 +1,137 @@
+[gd_scene load_steps=8 format=3 uid="uid://b3c6adjaf68rg"]
+
+[ext_resource type="Texture2D" uid="uid://r20qv1mmv45i" path="res://spites/arrow.png" id="1_qtag7"]
+[ext_resource type="Script" uid="uid://cc4x0q18y715a" path="res://scripts/puzzle_panel.gd" id="1_vgq64"]
+[ext_resource type="FontFile" uid="uid://dp5f5f5yei6ty" path="res://Fonts/Battlenet.ttf" id="2_y6bvn"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5suve"]
+bg_color = Color(0.83611006, 0.76500314, 0.19128713, 0.23921569)
+border_width_left = 20
+border_width_top = 20
+border_width_right = 20
+border_width_bottom = 20
+border_color = Color(0.80773765, 0.8064179, 0.7107292, 1)
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_vgq64"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vgq64"]
+bg_color = Color(0.18538323, 0.18538329, 0.18538317, 1)
+corner_radius_top_left = 30
+corner_radius_top_right = 30
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 30
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_qtag7"]
+
+[node name="puzzle_panel" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_vgq64")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_5suve")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_top = 100
+theme_override_constants/margin_right = 100
+
+[node name="HFlowContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 50
+
+[node name="ContinentLogo" type="TextureRect" parent="PanelContainer/VBoxContainer/MarginContainer/HFlowContainer"]
+layout_mode = 2
+texture = SubResource("CanvasTexture_vgq64")
+expand_mode = 2
+
+[node name="Panel" type="Panel" parent="PanelContainer/VBoxContainer/MarginContainer/HFlowContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_vgq64")
+
+[node name="LoreLabel" type="Label" parent="PanelContainer/VBoxContainer/MarginContainer/HFlowContainer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme_override_fonts/font = ExtResource("2_y6bvn")
+theme_override_font_sizes/font_size = 76
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.0
+theme_override_constants/separation = 0
+
+[node name="Puzzle1" type="MarginContainer" parent="PanelContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_top = 250
+theme_override_constants/margin_bottom = 250
+
+[node name="Button" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer/Puzzle1"]
+custom_minimum_size = Vector2(416.47, 0)
+layout_mode = 2
+icon = SubResource("CanvasTexture_qtag7")
+
+[node name="arrowToPuzzle1" type="TextureRect" parent="PanelContainer/VBoxContainer/HBoxContainer"]
+modulate = Color(0, 0, 0, 1)
+custom_minimum_size = Vector2(225, 0)
+layout_mode = 2
+texture = ExtResource("1_qtag7")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Puzzle2" type="MarginContainer" parent="PanelContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_top = 250
+theme_override_constants/margin_bottom = 250
+
+[node name="Button" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer/Puzzle2"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+
+[node name="arrowToPuzzle2" type="TextureRect" parent="PanelContainer/VBoxContainer/HBoxContainer"]
+modulate = Color(0, 0, 0, 1)
+custom_minimum_size = Vector2(225, 0)
+layout_mode = 2
+texture = ExtResource("1_qtag7")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Puzzle3" type="MarginContainer" parent="PanelContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_top = 250
+theme_override_constants/margin_right = 100
+theme_override_constants/margin_bottom = 250
+
+[node name="Button" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer/Puzzle3"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2

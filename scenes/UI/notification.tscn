@@ -1,0 +1,64 @@
+[gd_scene load_steps=5 format=3 uid="uid://dnf5nt87065ir"]
+
+[ext_resource type="Script" uid="uid://bfuf5llsd8j13" path="res://scripts/notification.gd" id="1_8ians"]
+[ext_resource type="FontFile" uid="uid://dp5f5f5yei6ty" path="res://Fonts/Battlenet.ttf" id="1_rnbxd"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8ians"]
+bg_color = Color(0.36862746, 0.67058825, 0.56078434, 1)
+corner_radius_top_left = 30
+corner_radius_top_right = 30
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 30
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rnbxd"]
+bg_color = Color(1, 0, 0.043137256, 1)
+corner_radius_bottom_right = 2240
+corner_radius_bottom_left = 2240
+
+[node name="Notification" type="CanvasLayer"]
+script = ExtResource("1_8ians")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -770.0
+offset_bottom = 221.0
+grow_horizontal = 0
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 30
+
+[node name="Panel" type="Panel" parent="MarginContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_8ians")
+
+[node name="Label" type="Label" parent="MarginContainer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("1_rnbxd")
+theme_override_font_sizes/font_size = 60
+text = "sdafasdfsad"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="LoadBar" type="Panel" parent="MarginContainer/Panel"]
+show_behind_parent = true
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 14.0
+offset_top = -4.830002
+offset_right = -13.0
+offset_bottom = 5.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_rnbxd")

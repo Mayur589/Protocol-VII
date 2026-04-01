@@ -48,41 +48,40 @@ func _empty_difficulty_dict() -> Dictionary:
 		"HARD": {}
 	}
 
-#var puzzles_easy: Array[String] = [
-	#"res://scenes/Puzzles/easy_1.tscn",
-	#"res://scenes/Puzzles/easy_2.tscn",
-	#"res://scenes/Puzzles/easy_3.tscn",
-#]
-#var puzzles_medium: Array[String] = [
-	#"res://scenes/Puzzles/medium_1.tscn",
-	#"res://scenes/Puzzles/medium_2.tscn",
-	#"res://scenes/Puzzles/medium_3.tscn",
-#]
-#
-#var puzzles_hard: Array[String] = [
-	#"res://scenes/Puzzles/hard_1.tscn",
-	#"res://scenes/Puzzles/hard_2.tscn",
-	#"res://scenes/Puzzles/hard_3.tscn"
-#]
-
 var puzzles_easy: Array[String] = [
-	"res://scenes/Puzzles/dummy_puzzle.tscn",
-	"res://scenes/Puzzles/dummy_puzzle.tscn",
-	"res://scenes/Puzzles/dummy_puzzle.tscn",
+	"res://scenes/Puzzles/easy_1.tscn",
+	"res://scenes/Puzzles/easy_2.tscn",
+	"res://scenes/Puzzles/easy_3.tscn",
 ]
-
 var puzzles_medium: Array[String] = [
-	"res://scenes/Puzzles/dummy_puzzle.tscn",
-	"res://scenes/Puzzles/dummy_puzzle.tscn",
-	"res://scenes/Puzzles/dummy_puzzle.tscn",
+	"res://scenes/Puzzles/medium_1.tscn",
+	"res://scenes/Puzzles/medium_2.tscn",
+	"res://scenes/Puzzles/medium_3.tscn",
 ]
 
 var puzzles_hard: Array[String] = [
-	"res://scenes/Puzzles/dummy_puzzle.tscn",
-	"res://scenes/Puzzles/dummy_puzzle.tscn",
-	"res://scenes/Puzzles/dummy_puzzle.tscn",
+	"res://scenes/Puzzles/hard_1.tscn",
+	"res://scenes/Puzzles/hard_2.tscn",
+	"res://scenes/Puzzles/hard_3.tscn"
 ]
 
+#var puzzles_easy: Array[String] = [
+	#"res://scenes/Puzzles/dummy_puzzle.tscn",
+	#"res://scenes/Puzzles/dummy_puzzle.tscn",
+	#"res://scenes/Puzzles/dummy_puzzle.tscn",
+#]
+#
+#var puzzles_medium: Array[String] = [
+	#"res://scenes/Puzzles/dummy_puzzle.tscn",
+	#"res://scenes/Puzzles/dummy_puzzle.tscn",
+	#"res://scenes/Puzzles/dummy_puzzle.tscn",
+#]
+#
+#var puzzles_hard: Array[String] = [
+	#"res://scenes/Puzzles/dummy_puzzle.tscn",
+	#"res://scenes/Puzzles/dummy_puzzle.tscn",
+	#"res://scenes/Puzzles/dummy_puzzle.tscn",
+#]
 
 
 var continents: Array[String] = [

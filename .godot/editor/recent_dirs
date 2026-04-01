@@ -1,7 +1,8 @@
 res://scripts
-res://Shader
-res://scenes
+res://scenes/UI
 res://scripts/puzzles
+res://scenes
+res://Shader
 res://scripts/Continent
 res://
 res://Resources/Continents

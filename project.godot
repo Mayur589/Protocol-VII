@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="learn"
-run/main_scene="uid://dm34fmwop7211"
+run/main_scene="uid://dwhj1o46rmgft"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -31,6 +31,7 @@ window/stretch/aspect="expand"
 
 folder_colors={
 "res://Resources/": "blue",
+"res://Shader/": "orange",
 "res://scenes/": "green",
 "res://scripts/": "red",
 "res://spites/": "yellow"

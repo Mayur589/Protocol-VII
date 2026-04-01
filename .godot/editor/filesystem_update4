@@ -1,9 +1,6 @@
-res://scenes/map.tscn
-res://global.gd
-res://scenes/desktop.tscn
+res://scenes/UI/puzzle_panel.tscn
 res://Shader/desktop.gdshader
-res://scripts/desktop.gd
-res://scripts/map.gd
-res://scenes/playerprogressbar.tscn
-res://scripts/playerprogressbar.gd
+res://scripts/puzzle_panel.gd
 res://scenes/puzzle_display.tscn
+res://scenes/UI/notification.tscn
+res://scenes/Puzzles/medium_3.tscn
