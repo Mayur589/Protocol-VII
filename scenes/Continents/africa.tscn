@@ -2,10 +2,8 @@
 
 [ext_resource type="Script" uid="uid://dg8f6kerpesn2" path="res://scripts/Continent/africa.gd" id="1_asglq"]
 [ext_resource type="Resource" uid="uid://b5wunxns5bykb" path="res://Resources/Continents/africa.tres" id="2_xv8b3"]
+[ext_resource type="Texture2D" uid="uid://c7u2f8gvbdh44" path="res://spites/continent/Africa.svg" id="3_africa_svg"]
 [ext_resource type="Script" uid="uid://bo6vmd76gct5a" path="res://scripts/panel_container.gd" id="4_m7erd"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_asglq"]
-size = Vector2(390, 411)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_67q4j"]
 content_margin_left = 10.0
@@ -30,10 +28,12 @@ con_res = ExtResource("2_xv8b3")
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="Sprite2D" type="Sprite2D" parent="Area2D"]
+scale = Vector2(0.35, 0.35)
+texture = ExtResource("3_africa_svg")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(3, 23.5)
-shape = SubResource("RectangleShape2D_asglq")
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
+scale = Vector2(0.35, 0.35)
+polygon = PackedVector2Array(-412, -668, -393, -672, -348, -668, -282, -668, -183, -657, -101, -577, 131, -566, 181, -591, 80, -607, 60, -658, 153, -669, 378, -667, 552, -660, 609, -594, 600, -487, 529, -462, 458, -495, 458, -436, 603, -410, 583, -309, 490, -241, 495, -158, 462, -75, 399, 15, 373, 83, 325, 155, 311, 231, 355, 253, 443, 247, 428, 370, 391, 456, 342, 505, 248, 501, 168, 516, 116, 622, 9, 661, -85, 586, -109, 441, -167, 337, -178, 235, -181, 123, -214, 29, -324, -53, -412, -50, -502, -57, -544, -109, -578, -328, -552, -474, -451, -570, -419, -676, -412, -658, -412, -667)
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 offset_left = -64.0

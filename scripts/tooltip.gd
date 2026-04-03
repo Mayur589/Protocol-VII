@@ -36,21 +36,21 @@ func display(con_res):
 	
 	
 	# --- HEADER ---
-	label.text = "[center][outline_size=6][outline_color=#000000][font_size=26][b]%s[/b][/font_size][/outline_color][/outline_size][/center]" % con_res.Name.to_upper()
-	label.append_text("[center][color=#888888][font_size=14]INTEL REPORT[/font_size][/color][/center]\n")
-	label.append_text("[center]──────────────────[/center]\n")
+	label.text = "[center][b][color=#b9d7ff][font_size=22]%s[/font_size][/color][/b][/center]" % con_res.Name.to_upper()
+	label.append_text("[center][color=#6aa6d9][font_size=12]INTEL REPORT[/font_size][/color][/center]\n")
+	label.append_text("[center][color=#2b4d6f]--------------------[/color][/center]\n")
 	
 	# --- STATS WITH "DATA BARS" ---
-	# We use a custom function to create visual bars like [■■■□□]
-	label.append_text("\n[font_size=18]")
-	label.append_text("[color=#ff4d4d]⚔ MILITARY[/color] [right]%d[/right]\n" % con_res.Military_Power)
-	label.append_text("[color=#00ffff]🌐 CYBER[/color]    [right]%d[/right]\n" % con_res.Cyber_strength)
-	label.append_text("[color=#ffd700]⚖ POLITICAL[/color][right]%d[/right]\n" % con_res.Political_influence)
+	# We use a custom function to create visual bars like [###---]
+	label.append_text("\n[font_size=16]")
+	label.append_text("[color=#ff6b6b]MILITARY[/color] [right]%d[/right]\n" % con_res.Military_Power)
+	label.append_text("[color=#4fe3ff]CYBER[/color]    [right]%d[/right]\n" % con_res.Cyber_strength)
+	label.append_text("[color=#ffd06b]POLITICAL[/color][right]%d[/right]\n" % con_res.Political_influence)
 	
 	# --- PROGRESS ---
-	label.append_text("\n[center][color=#32cd32]PUZZLES DECRYPTED[/color][/center]")
+	label.append_text("\n[center][color=#7bdc8b]PUZZLES DECRYPTED[/color][/center]")
 	var bar = _create_progress_bar(stats.unlocked, stats.total)
-	label.append_text("[center][font_size=20]%s[/font_size][/center]" % bar)
+	label.append_text("[center][font_size=18]%s[/font_size][/center]" % bar)
 	label.append_text("[center][font_size=14]%d / %d COMPLETED[/font_size][/center]" % [stats.unlocked, stats.total])
 	
 	panel.modulate.a = 0
@@ -63,16 +63,18 @@ func display(con_res):
 
 # Helper function to create a "Gamer" progress bar using text symbols
 func _create_progress_bar(unlocked: int, total: int) -> String:
-	if total == 0: return "□□□□□□□□□□"
-	var size = 10
+	if total == 0:
+		return "[color=#2b3b4d]------------[/color]"
+	var size = 12
 	var filled = int(round(float(unlocked) / total * size))
-	var bar = ""
+	var bar_on = ""
+	var bar_off = ""
 	for i in range(size):
 		if i < filled:
-			bar += "■" # Filled block
+			bar_on += "#"
 		else:
-			bar += "□" # Empty block
-	return bar
+			bar_off += "-"
+	return "[color=#5fe3ff]" + bar_on + "[/color][color=#2b3b4d]" + bar_off + "[/color]"
 
 
 func _reposition():

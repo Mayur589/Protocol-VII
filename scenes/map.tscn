@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://b0brvycigcx0x"]
+[gd_scene load_steps=14 format=3 uid="uid://b0brvycigcx0x"]
 
 [ext_resource type="Script" uid="uid://dsmdkbyo5a5fi" path="res://scripts/map.gd" id="1_paxxb"]
 [ext_resource type="PackedScene" uid="uid://s2r18fvrknxt" path="res://scenes/Continents/asia.tscn" id="2_jh32y"]
@@ -12,32 +12,79 @@
 [ext_resource type="Texture2D" uid="uid://dw125koxofkpn" path="res://spites/worldMap.jpg" id="10_blm8a"]
 [ext_resource type="PackedScene" uid="uid://cw64kr67rctjk" path="res://scenes/playerprogressbar.tscn" id="11_mlgqr"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_map_frame"]
+bg_color = Color(0.039215688, 0.07058824, 0.050980393, 0.54901963)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.120788194, 0.62723553, 0.8692685, 0.9019608)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+shadow_color = Color(0.2, 1, 0.2, 0.22)
+shadow_size = 10
+shadow_offset = Vector2(0, 2)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_blm8a"]
 size = Vector2(276, 138)
 
 [node name="Map" type="Node2D"]
 script = ExtResource("1_paxxb")
 
+[node name="MapFrame" type="PanelContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 1918.0
+offset_bottom = 1077.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_map_frame")
+
+[node name="BackgroundLayer" type="CanvasLayer" parent="."]
+layer = -10
+
+[node name="Background" type="ColorRect" parent="BackgroundLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+color = Color(0.024208516, 0.46136028, 0.77587044, 1)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
+z_index = -1
+position = Vector2(961, 540)
+scale = Vector2(0.3657143, 0.3085714)
+texture = ExtResource("10_blm8a")
+
 [node name="Asia" parent="." instance=ExtResource("2_jh32y")]
-position = Vector2(1353, 376)
+position = Vector2(1454, 291)
 
 [node name="Africa" parent="." instance=ExtResource("3_be0no")]
-position = Vector2(972, 622)
+position = Vector2(978, 637)
 
 [node name="antarctica" parent="." instance=ExtResource("4_blm8a")]
-position = Vector2(1080, 1053)
+position = Vector2(962, 1033)
 
 [node name="Europe" parent="." instance=ExtResource("5_mlgqr")]
-position = Vector2(995, 331)
+position = Vector2(897, 256)
 
 [node name="North_America" parent="." instance=ExtResource("6_wslke")]
-position = Vector2(336, 398)
+position = Vector2(352, 318)
 
 [node name="Oceania" parent="." instance=ExtResource("7_gw3fx")]
-position = Vector2(1607, 763)
+position = Vector2(1660, 759)
 
 [node name="South_America" parent="." instance=ExtResource("8_n1psn")]
-position = Vector2(515, 754)
+position = Vector2(514, 756)
 
 [node name="BackArrow" type="Area2D" parent="."]
 position = Vector2(1755, 100)
@@ -50,12 +97,6 @@ texture = ExtResource("9_be0no")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BackArrow"]
 position = Vector2(0, 1)
 shape = SubResource("RectangleShape2D_blm8a")
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-z_index = -1
-position = Vector2(960, 539.99994)
-scale = Vector2(0.3657143, 0.3085714)
-texture = ExtResource("10_blm8a")
 
 [node name="Playerprogressbar" parent="." instance=ExtResource("11_mlgqr")]
 position = Vector2(649, 25)

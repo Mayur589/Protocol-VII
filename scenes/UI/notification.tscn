@@ -1,19 +1,43 @@
-[gd_scene load_steps=5 format=3 uid="uid://dnf5nt87065ir"]
+[gd_scene load_steps=7 format=3 uid="uid://dnf5nt87065ir"]
 
 [ext_resource type="Script" uid="uid://bfuf5llsd8j13" path="res://scripts/notification.gd" id="1_8ians"]
 [ext_resource type="FontFile" uid="uid://dp5f5f5yei6ty" path="res://Fonts/Battlenet.ttf" id="1_rnbxd"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8ians"]
-bg_color = Color(0.36862746, 0.67058825, 0.56078434, 1)
-corner_radius_top_left = 30
-corner_radius_top_right = 30
-corner_radius_bottom_right = 30
-corner_radius_bottom_left = 30
+bg_color = Color(0.03, 0.07, 0.05, 0.96)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.2, 1, 0.2, 0.9)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+shadow_color = Color(0.2, 1, 0.2, 0.2)
+shadow_size = 8
+shadow_offset = Vector2(0, 2)
+
+[sub_resource type="Shader" id="Shader_scanlines"]
+code = "shader_type canvas_item;
+uniform float line_strength = 0.1;
+uniform float line_density = 220.0;
+void fragment() {
+	vec4 c = COLOR;	float line = step(0.5, fract(UV.y * line_density));	c.rgb *= 1.0 - (line * line_strength);	COLOR = c;
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_scanlines"]
+shader = SubResource("Shader_scanlines")
+shader_parameter/line_strength = 0.1
+shader_parameter/line_density = 220.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rnbxd"]
-bg_color = Color(1, 0, 0.043137256, 1)
-corner_radius_bottom_right = 2240
-corner_radius_bottom_left = 2240
+bg_color = Color(0.2, 1, 0.2, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
 
 [node name="Notification" type="CanvasLayer"]
 process_mode = 3
@@ -24,30 +48,65 @@ script = ExtResource("1_8ians")
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -770.0
-offset_bottom = 221.0
+offset_left = -980.0
+offset_bottom = 300.0
 grow_horizontal = 0
 theme_override_constants/margin_top = 30
 theme_override_constants/margin_right = 30
 theme_override_constants/margin_bottom = 30
 
 [node name="Panel" type="Panel" parent="MarginContainer"]
+custom_minimum_size = Vector2(900, 240)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_8ians")
 
-[node name="Label" type="Label" parent="MarginContainer/Panel"]
+[node name="HeaderLabel" type="Label" parent="MarginContainer/Panel"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 18.0
+offset_top = 10.0
+offset_right = -18.0
+offset_bottom = 30.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.65, 1, 0.65, 1)
+theme_override_fonts/font = ExtResource("1_rnbxd")
+theme_override_font_sizes/font_size = 24
+text = "OMNI LINK"
+vertical_alignment = 1
+
+[node name="Label" type="RichTextLabel" parent="MarginContainer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = 26.0
+offset_right = -20.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_colors/default_color = Color(0.75, 1, 0.75, 1)
+theme_override_fonts/normal_font = ExtResource("1_rnbxd")
+theme_override_font_sizes/normal_font_size = 48
+bbcode_enabled = true
+text = "sdafasdfsad"
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Scanlines" type="ColorRect" parent="MarginContainer/Panel"]
+material = SubResource("ShaderMaterial_scanlines")
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_fonts/font = ExtResource("1_rnbxd")
-theme_override_font_sizes/font_size = 60
-text = "sdafasdfsad"
-horizontal_alignment = 1
-vertical_alignment = 1
-autowrap_mode = 3
+mouse_filter = 2
+color = Color(0.2, 1, 0.2, 0.08)
 
 [node name="LoadBar" type="Panel" parent="MarginContainer/Panel"]
 show_behind_parent = true

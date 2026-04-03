@@ -2,10 +2,8 @@
 
 [ext_resource type="Script" uid="uid://begelk3wrlyna" path="res://scripts/Continent/north_america.gd" id="1_3gomy"]
 [ext_resource type="Resource" uid="uid://b6pe5l7m61fg2" path="res://Resources/Continents/north_america.tres" id="2_pfau5"]
+[ext_resource type="Texture2D" uid="uid://tghd1tmm5mfb" path="res://spites/continent/North_America.svg" id="3_north_svg"]
 [ext_resource type="Script" uid="uid://bo6vmd76gct5a" path="res://scripts/panel_container.gd" id="4_jleur"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_3gomy"]
-size = Vector2(488, 360)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c3nos"]
 content_margin_left = 10.0
@@ -26,14 +24,17 @@ corner_radius_bottom_left = 3
 [node name="North_America" type="Node2D"]
 script = ExtResource("1_3gomy")
 con_res = ExtResource("2_pfau5")
+continent_texture = ExtResource("3_north_svg")
 
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="Sprite2D" type="Sprite2D" parent="Area2D"]
+scale = Vector2(0.35, 0.35)
+texture = ExtResource("3_north_svg")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(-2, -15)
-shape = SubResource("RectangleShape2D_3gomy")
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
+scale = Vector2(0.35, 0.35)
+polygon = PackedVector2Array(695, -295, 682, -60, 587, -61, 578, -106, 520, -98, 526, -63, 525, -10, 426, -5, 374, 23, 311, 90, 226, 173, 168, 242, 175, 354, 225, 402, 314, 415, 338, 426, 244, 452, 175, 460, 156, 405, 104, 399, 102, 347, 131, 322, 130, 236, 48, 244, -9, 273, -41, 277, -87, 379, -40, 398, 22, 400, 24, 441, 97, 515, 80, 587, -45, 601, -126, 563, -210, 497, -380, 330, -407, 193, -430, -5, -386, -136, -402, -224, -518, -189, -664, -205, -703, -313, -617, -446, -472, -455, -326, -464, -143, -460, 48, -485, 121, -575, 258, -581, 428, -581, 536, -644, 667, -627, 703, -598, 636, -535, 564, -478, 642, -428, 713, -412, 672, -353, 601, -302)
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 offset_left = -64.0

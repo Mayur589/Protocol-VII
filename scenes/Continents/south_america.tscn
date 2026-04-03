@@ -2,10 +2,8 @@
 
 [ext_resource type="Script" uid="uid://djb8q6i3msjh1" path="res://scripts/Continent/south_america.gd" id="1_xn0d1"]
 [ext_resource type="Resource" uid="uid://133saewyqc4p" path="res://Resources/Continents/south_america.tres" id="2_hi33r"]
+[ext_resource type="Texture2D" uid="uid://lm1omr3tyojs" path="res://spites/continent/South_America.svg" id="3_south_svg"]
 [ext_resource type="Script" uid="uid://bo6vmd76gct5a" path="res://scripts/panel_container.gd" id="4_jx5p0"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_xn0d1"]
-size = Vector2(242, 396)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hqd8y"]
 content_margin_left = 10.0
@@ -26,14 +24,18 @@ corner_radius_bottom_left = 3
 [node name="South_America" type="Node2D"]
 script = ExtResource("1_xn0d1")
 con_res = ExtResource("2_hi33r")
+continent_texture = ExtResource("3_south_svg")
 
 [node name="Area2D" type="Area2D" parent="."]
+position = Vector2(0, -2)
 
 [node name="Sprite2D" type="Sprite2D" parent="Area2D"]
+scale = Vector2(0.335, 0.335)
+texture = ExtResource("3_south_svg")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(-2, 14)
-shape = SubResource("RectangleShape2D_xn0d1")
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
+scale = Vector2(0.335, 0.335)
+polygon = PackedVector2Array(-228, -567, -217, -611, -182, -598, -169, -571, -115, -557, -70, -558, -1, -540, 33, -496, 116, -467, 179, -396, 236, -369, 302, -359, 366, -307, 400, -213, 377, -137, 341, -105, 331, 29, 263, 128, 208, 181, 150, 230, 67, 331, 59, 450, 52, 519, 140, 542, 110, 627, -28, 604, -87, 540, -159, 415, -119, 339, -177, 286, -207, 183, -197, 89, -196, 9, -206, -52, -243, -97, -277, -134, -300, -197, -334, -359, -315, -467, -380, -502, -377, -569, -307, -571)
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 offset_left = -64.0

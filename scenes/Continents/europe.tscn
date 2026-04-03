@@ -2,10 +2,8 @@
 
 [ext_resource type="Script" uid="uid://bks8psdm6sbpf" path="res://scripts/Continent/europe.gd" id="1_vo8an"]
 [ext_resource type="Resource" uid="uid://c5xfc5eelhdy3" path="res://Resources/Continents/europe.tres" id="2_7p4mo"]
+[ext_resource type="Texture2D" uid="uid://c1ll3evj83okh" path="res://spites/continent/Europe.svg" id="3_europe_svg"]
 [ext_resource type="Script" uid="uid://bo6vmd76gct5a" path="res://scripts/panel_container.gd" id="4_gr3xe"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_vo8an"]
-size = Vector2(425, 244)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_43oic"]
 content_margin_left = 10.0
@@ -30,10 +28,12 @@ con_res = ExtResource("2_7p4mo")
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="Sprite2D" type="Sprite2D" parent="Area2D"]
+scale = Vector2(0.35, 0.35)
+texture = ExtResource("3_europe_svg")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(9.5, -22)
-shape = SubResource("RectangleShape2D_vo8an")
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
+scale = Vector2(0.35, 0.35)
+polygon = PackedVector2Array(-746, -451, -763, -396, -708, -345, -642, -282, -674, -217, -636, -108, -494, -92, -425, -140, -270, -153, -247, -78, -230, 19, -205, 104, -116, 77, -83, 119, -200, 181, -252, 271, -190, 324, -203, 421, -118, 429, -11, 431, 139, 448, 531, 428, 735, 424, 762, 289, 655, 222, 628, 130, 672, 139, 728, 199, 762, 107, 757, -127, 737, -324, 670, -394, 543, -451, 413, -439, 278, -451, 106, -454, -45, -464, -263, -449, -552, -442)
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 offset_left = -64.0

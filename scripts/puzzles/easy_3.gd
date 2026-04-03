@@ -137,7 +137,12 @@ func process_command(cmd, arg):
 					print_to_terminal("[color=#ff4444]INVALID PASSWORD. " + str(tries_left) + " TRIES REMAINING.[/color]")
 
 		"help":
-			print_to_terminal("Commands: [color=#ffff00]ls[/color] [-a], [color=#ffff00]cat[/color], [color=#ffff00]man[/color] [cmd], [color=#ffff00]login[/color] [pass], [color=#ffff00]clear[/color]")
+			print_to_terminal("--- [b][color=#00ffff]SYSTEM HELP MENU[/color][/b] ---")
+			print_to_terminal("  [color=#ffff00]ls[/color]      : List directory contents (use [color=#add8e6]-a[/color] for hidden files)")
+			print_to_terminal("  [color=#ffff00]cat[/color]     : Read a file")
+			print_to_terminal("  [color=#ffff00]man[/color]     : Read a manual page (e.g., [color=#add8e6]man ls[/color])")
+			print_to_terminal("  [color=#ffff00]login[/color]   : Submit password (e.g., [color=#add8e6]login PASS[/color])")
+			print_to_terminal("  [color=#ffff00]clear[/color]   : Clear the terminal screen")
 		"clear":
 			output_log.clear()
 		_:

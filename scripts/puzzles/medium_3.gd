@@ -224,8 +224,8 @@ func process_command(cmd, parts):
 			print_to_terminal("--- [b][color=#00ffff]SYSTEM HELP MENU[/color][/b] ---")
 			print_to_terminal("  [color=#ffff00]ls[/color]      : List directory contents (use [color=#add8e6]-a[/color] for hidden files)")
 			print_to_terminal("  [color=#ffff00]cat[/color]     : Read a file")
-			print_to_terminal("  [color=#ffff00]grep[/color]    : Search a file")
-			print_to_terminal("  [color=#ffff00]rm[/color]      : Remove/delete a file (e.g., [color=#add8e6]rm old_data.txt[/color])")
+			print_to_terminal("  [color=#ffff00]grep[/color]    : Search a file (e.g., [color=#add8e6]grep ACTIVE system_monitor.log[/color])")
+			print_to_terminal("  [color=#ffff00]rm[/color]      : Remove/delete a file (e.g., [color=#add8e6]rm .lock_123[/color])")
 			print_to_terminal("  [color=#ffff00]./[/color]      : Execute a program")
 			print_to_terminal("  [color=#ffff00]clear[/color]   : Clear the terminal screen")
 			

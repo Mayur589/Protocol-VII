@@ -2,10 +2,8 @@
 
 [ext_resource type="Script" uid="uid://c2aj2a6r7ob8k" path="res://scripts/Continent/antarctica.gd" id="1_vhnpc"]
 [ext_resource type="Resource" uid="uid://bwtcslg0q8ug1" path="res://Resources/Continents/antarctica.tres" id="2_du786"]
+[ext_resource type="Texture2D" uid="uid://b2vbns21vfxwt" path="res://spites/continent/Antarctica.svg" id="3_antarctica_svg"]
 [ext_resource type="Script" uid="uid://bo6vmd76gct5a" path="res://scripts/panel_container.gd" id="4_ijenx"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_vhnpc"]
-size = Vector2(128, 128)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_frdns"]
 content_margin_left = 10.0
@@ -26,14 +24,17 @@ corner_radius_bottom_left = 3
 [node name="antarctica" type="Node2D"]
 script = ExtResource("1_vhnpc")
 con_res = ExtResource("2_du786")
+continent_texture = ExtResource("3_antarctica_svg")
 
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="Sprite2D" type="Sprite2D" parent="Area2D"]
+scale = Vector2(0.37, 0.37)
+texture = ExtResource("3_antarctica_svg")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-scale = Vector2(13, 1)
-shape = SubResource("RectangleShape2D_vhnpc")
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
+scale = Vector2(0.37, 0.37)
+polygon = PackedVector2Array(-2573, 58, -2527, -56, -2455, -36, -2346, -31, -2258, -31, -2068, -82, -1971, -91, -1791, -19, -1309, -13, -986, -34, -602, -16, -178, -59, 71, -54, 469, -39, 853, -28, 1142, -28, 1712, -36, 2193, -48, 2443, -54, 2612, -5, 2620, 127, 2414, 153, 2027, 118, 1672, 147, 1268, 138, 913, 130, 555, 115, 100, 113, -419, 118, -722, 110, -1126, 121, -1604, 115, -1874, 110, -2272, 98)
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 offset_left = -64.0

@@ -17,9 +17,11 @@ const ANTARCTICA: String = "Antarctica"
 var current_puzzle_diff: String = ""
 var current_puzzle_id: String = ""
 var omni_awareness: int = 0 
+var game_ended: bool = false
 
 var continent_puzzles: Dictionary = {}
-
+var notification_scene = preload("res://scenes/UI/notification.tscn")
+var notification_log: Array[String] = []
 
 var continent_accuire = {
 	"Asia": [0, false],
@@ -278,23 +280,51 @@ func _trigger_update_puzzle_completed() -> void:
 func _trigger_omni_turn(player_won: bool) -> void:
 	player_turn = false
 	print("OMNI IS ANALYZING THREAT...")
+	var awareness_delta := 0
+	var domination_delta := 0
 	
 	if player_won:
-		omni_awareness += 3
+		awareness_delta = 3
+		omni_awareness += awareness_delta
 		print("Omni trace increased to: ", omni_awareness, "%")
 	else:
-		omni_awareness += 12
-		domination -= 5
+		awareness_delta = 12
+		domination_delta = -5
+		omni_awareness += awareness_delta
+		domination += domination_delta
 		print("Omni reinforced firewalls. Domination lost!")
 	
 	# 1. Clamp BOTH values to ensure they stay between 0 and 100 safely
 	omni_awareness = clampi(omni_awareness, 0, 100)
 	domination = clampi(domination, 0, 100)
+
+	var response_message := _build_omni_message(player_won, awareness_delta, domination_delta)
+	set_notification(response_message, 4.0)
 	
 	player_turn = true
 	
 	# 2. Run the master check to see if the game is over
 	_check_game_state()
+
+func _build_omni_message(player_won: bool, awareness_delta: int, domination_delta: int) -> String:
+	var tier = _get_omni_tier(omni_awareness)
+	var status_text = "COUNTERMEASURE FAILED" if player_won else "FIREWALLS ADAPT"
+	var status_color = "#7cff6b" if player_won else "#ff6b6b"
+
+	var message := "[color=#00d2ff][b]OMNI RESPONSE[/b][/color]\n"
+	message += "[color=%s][b]%s[/b][/color]\n" % [status_color, status_text]
+	message += "[color=%s]TRACE STATUS: %s[/color]\n" % [tier["color"], tier["label"]]
+	message += "[color=#00d2ff]TRACE +%d%%[/color] [color=#ffffff](A:%d%%)[/color]" % [awareness_delta, omni_awareness]
+	if domination_delta != 0:
+		message += " [color=#ff6b6b]DOM %d%%[/color]" % domination_delta
+	return message
+
+func _get_omni_tier(awareness: int) -> Dictionary:
+	if awareness < 35:
+		return {"label": "SIGNAL WEAK", "color": "#7cff6b"}
+	if awareness < 70:
+		return {"label": "TRACE RISING", "color": "#ffd166"}
+	return {"label": "TRACE CRITICAL", "color": "#ff6b6b"}
 
 func _conquer_continent(continent: String) -> void:
 	# Check if it exists AND hasn't been conquered yet
@@ -308,17 +338,38 @@ func _conquer_continent(continent: String) -> void:
 		print(">>> " + continent.to_upper() + " SECURED. OMNI PRESENCE PURGED.")
 
 func _check_game_state() -> void:
+	if game_ended:
+		return
+
 	# LOSS CONDITION: Omni finds you first
 	if omni_awareness >= 100:
 		print("=======================================")
 		print(" GAME OVER - Omni has traced your location.")
 		print("=======================================")
-		# get_tree().change_scene_to_file("res://scenes/game_over.tscn")
-		return # Stop running code if they lost
+		game_ended = true
+		_go_to_end_scene("res://scenes/game_over.tscn")
+		return
 		
 	# WIN CONDITION: You take over the network
-	if domination >= 100:
+	if _all_continents_conquered():
 		print("=======================================")
 		print(" GLOBAL DOMINATION ACHIEVED! YOU WIN! ")
 		print("=======================================")
-		# get_tree().change_scene_to_file("res://scenes/victory.tscn")
+		game_ended = true
+		_go_to_end_scene("res://scenes/victory.tscn")
+		return
+
+func _all_continents_conquered() -> bool:
+	for continent in continent_accuire.keys():
+		if continent_accuire[continent][0] < 3:
+			return false
+	return true
+
+func _go_to_end_scene(path: String) -> void:
+	get_tree().call_deferred("change_scene_to_file", path)
+
+func set_notification(text: String, time: float = 3.0):
+	notification_log.append(text)
+	var noti = notification_scene.instantiate()
+	noti.setup(text, time)
+	add_child(noti)

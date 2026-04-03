@@ -2,10 +2,8 @@
 
 [ext_resource type="Script" uid="uid://d4drd3hkqwfs1" path="res://scripts/Continent/asia.gd" id="1_y8tg5"]
 [ext_resource type="Resource" uid="uid://bdt2b2pvw8m2x" path="res://Resources/Continents/asia.tres" id="2_ja5mo"]
+[ext_resource type="Texture2D" uid="uid://dluhsdl7lfc0v" path="res://spites/continent/Asia.svg" id="3_asia_svg"]
 [ext_resource type="Script" uid="uid://bo6vmd76gct5a" path="res://scripts/panel_container.gd" id="4_ja5mo"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_q3u0u"]
-size = Vector2(459, 386)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y8tg5"]
 content_margin_left = 10.0
@@ -30,10 +28,12 @@ con_res = ExtResource("2_ja5mo")
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="Sprite2D" type="Sprite2D" parent="Area2D"]
+scale = Vector2(0.35, 0.35)
+texture = ExtResource("3_asia_svg")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(111.5, 37)
-shape = SubResource("RectangleShape2D_q3u0u")
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
+scale = Vector2(0.35, 0.35)
+polygon = PackedVector2Array(-647, -787, -497, -756, -283, -698, -134, -757, 137, -702, 412, -660, 605, -606, 680, -484, 524, -392, 484, -322, 362, -371, 275, -420, 268, -373, 411, -282, 445, -157, 433, -53, 294, 25, 202, -20, 214, 79, 207, 171, 122, 227, 63, 319, -12, 434, 4, 577, 64, 594, 97, 519, 183, 439, 221, 331, 304, 328, 296, 476, 224, 545, 325, 582, 438, 589, 557, 610, 699, 622, 790, 627, 840, 714, 744, 787, 590, 792, 440, 784, 320, 811, 184, 798, -2, 742, -92, 679, -132, 552, -158, 403, -228, 278, -301, 291, -292, 333, -311, 453, -412, 486, -539, 455, -565, 328, -602, 224, -720, 258, -800, 281, -861, 152, -852, 83, -819, -65, -830, -204, -814, -441, -824, -569, -796, -705, -713, -709, -673, -761)
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 offset_left = -64.0

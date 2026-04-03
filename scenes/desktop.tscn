@@ -7,6 +7,8 @@
 [ext_resource type="Texture2D" uid="uid://ctbqq6e3hf0nr" path="res://spites/PatchInverted.png" id="3_ox5hf"]
 [ext_resource type="Shader" uid="uid://q271m6wpn8ab" path="res://Shader/desktop.gdshader" id="5_dcrhm"]
 [ext_resource type="Texture2D" uid="uid://ddqfe0kk133no" path="res://spites/map.png" id="6_6ajoh"]
+[ext_resource type="Texture2D" uid="uid://c1wxs11gx512k" path="res://spites/Window.png" id="7_stats"]
+[ext_resource type="Texture2D" uid="uid://cw7qeydngpdvd" path="res://spites/terminal.png" id="8_notifications"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6ajoh"]
 bg_color = Color(0.7921569, 0.7921569, 0.7921569, 1)
@@ -165,6 +167,50 @@ offset_right = -1.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("6_6ajoh")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="Stats" type="Button" parent="."]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 0
+offset_left = 59.0
+offset_top = 210.0
+offset_right = 178.0
+offset_bottom = 320.0
+size_flags_horizontal = 2
+size_flags_vertical = 0
+
+[node name="TextureRect" type="TextureRect" parent="Stats"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("7_stats")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="Notifications" type="Button" parent="."]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 0
+offset_left = 59.0
+offset_top = 340.0
+offset_right = 178.0
+offset_bottom = 450.0
+size_flags_horizontal = 2
+size_flags_vertical = 0
+
+[node name="TextureRect" type="TextureRect" parent="Notifications"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("8_notifications")
 expand_mode = 1
 stretch_mode = 4
 

@@ -4,6 +4,8 @@ extends Control
 @onready var annoy_window: Window = $annoyWindow
 @onready var start_button: Button = $Panel/startButton
 @onready var map: Button = $Map
+@onready var stats: Button = $Stats
+@onready var notifications: Button = $Notifications
 
 var shake_tween: Tween
 var original_position: Vector2
@@ -16,6 +18,8 @@ func _ready() -> void:
 	start_button.connect("button_down", _on_start_button_pressed)
 	annoy_window.connect("close_requested", _on_close_annoy_window)
 	map.connect("button_down", _on_map_clicked)
+	stats.connect("button_down", _on_stats_clicked)
+	notifications.connect("button_down", _on_notifications_clicked)
 
 func _on_start_button_pressed():
 	allow -= 1
@@ -33,6 +37,12 @@ func _on_close_annoy_window():
 
 func _on_map_clicked():
 	get_tree().change_scene_to_file("res://scenes/map.tscn")
+
+func _on_stats_clicked():
+	get_tree().change_scene_to_file("res://scenes/stats.tscn")
+
+func _on_notifications_clicked():
+	get_tree().change_scene_to_file("res://scenes/notification_log.tscn")
 
 func shake_screen():
 	if shake_tween:

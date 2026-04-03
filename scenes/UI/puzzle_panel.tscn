@@ -1,25 +1,106 @@
-[gd_scene load_steps=8 format=3 uid="uid://b3c6adjaf68rg"]
+[gd_scene load_steps=16 format=3 uid="uid://b3c6adjaf68rg"]
 
 [ext_resource type="Texture2D" uid="uid://r20qv1mmv45i" path="res://spites/arrow.png" id="1_qtag7"]
 [ext_resource type="Script" uid="uid://cc4x0q18y715a" path="res://scripts/puzzle_panel.gd" id="1_vgq64"]
 [ext_resource type="FontFile" uid="uid://dp5f5f5yei6ty" path="res://Fonts/Battlenet.ttf" id="2_y6bvn"]
+[ext_resource type="Texture2D" uid="uid://lxoimq4f0day" path="res://spites/backArrow.png" id="4_d12nc"]
+[ext_resource type="Shader" uid="uid://cyr4nbi2p7khi" path="res://Shader/puzzle_panel_dots.gdshader" id="5_dotbg"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dot_bg"]
+shader = ExtResource("5_dotbg")
+shader_parameter/base_color = Color(0.01, 0.03, 0.02, 1)
+shader_parameter/dot_color = Color(0.16, 0.32, 0.22, 0.55)
+shader_parameter/dot_color_2 = Color(0.08, 0.18, 0.12, 0.4)
+shader_parameter/dot_scale = 140.0
+shader_parameter/dot_scale_2 = 90.0
+shader_parameter/dot_radius = 0.17
+shader_parameter/dot_radius_2 = 0.12
+shader_parameter/dot_softness = 0.06
+shader_parameter/density = 0.55
+shader_parameter/density_2 = 0.35
+shader_parameter/jitter = 0.6
+shader_parameter/cluster_scale = 2.2
+shader_parameter/cluster_strength = 0.75
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ahat0"]
+size = Vector2(276, 138)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5suve"]
-bg_color = Color(0.83611006, 0.76500314, 0.19128713, 0.23921569)
-border_width_left = 20
-border_width_top = 20
-border_width_right = 20
-border_width_bottom = 20
-border_color = Color(0.80773765, 0.8064179, 0.7107292, 1)
+bg_color = Color(0.04, 0.07, 0.05, 0.95)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.2, 1, 0.2, 0.9)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+shadow_color = Color(0.2, 1, 0.2, 0.25)
+shadow_size = 10
+shadow_offset = Vector2(0, 2)
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_vgq64"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vgq64"]
-bg_color = Color(0.18538323, 0.18538329, 0.18538317, 1)
-corner_radius_top_left = 30
-corner_radius_top_right = 30
-corner_radius_bottom_right = 30
-corner_radius_bottom_left = 30
+bg_color = Color(0.03, 0.06, 0.04, 0.9)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.2, 1, 0.2, 0.6)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_normal"]
+bg_color = Color(0.02, 0.09, 0.05, 0.9)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.2, 1, 0.2, 0.8)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_pressed"]
+bg_color = Color(0.01, 0.12, 0.06, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.1, 0.7, 0.1, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_hover"]
+bg_color = Color(0.05, 0.18, 0.1, 0.95)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.4, 1, 0.4, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_disabled"]
+bg_color = Color(0.02, 0.06, 0.04, 0.6)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.2, 0.5, 0.2, 0.5)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_qtag7"]
 
@@ -30,7 +111,29 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 script = ExtResource("1_vgq64")
+
+[node name="Background" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_dot_bg")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BackArrow" type="Area2D" parent="."]
+position = Vector2(1792, 67)
+scale = Vector2(0.5, 0.5)
+
+[node name="Sprite2D" type="Sprite2D" parent="BackArrow"]
+modulate = Color(0.8037286, 0.7974856, 0.8124361, 1)
+texture = ExtResource("4_d12nc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BackArrow"]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_ahat0")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 1
@@ -39,10 +142,20 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_5suve")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
 layout_mode = 2
+theme_override_constants/separation = 24
+
+[node name="HeaderLabel" type="Label" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.2, 1, 0.2, 1)
+theme_override_fonts/font = ExtResource("2_y6bvn")
+theme_override_font_sizes/font_size = 68
+text = "CONTINENT ACCESS"
+horizontal_alignment = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
@@ -75,8 +188,9 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
+theme_override_colors/font_color = Color(0.65, 1, 0.65, 1)
 theme_override_fonts/font = ExtResource("2_y6bvn")
-theme_override_font_sizes/font_size = 76
+theme_override_font_sizes/font_size = 42
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
@@ -97,10 +211,17 @@ theme_override_constants/margin_bottom = 250
 [node name="Button" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer/Puzzle1"]
 custom_minimum_size = Vector2(416.47, 0)
 layout_mode = 2
+theme_override_colors/font_color = Color(0.7, 1, 0.7, 1)
+theme_override_fonts/font = ExtResource("2_y6bvn")
+theme_override_font_sizes/font_size = 34
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_normal")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_pressed")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_btn_disabled")
 icon = SubResource("CanvasTexture_qtag7")
 
 [node name="arrowToPuzzle1" type="TextureRect" parent="PanelContainer/VBoxContainer/HBoxContainer"]
-modulate = Color(0, 0, 0, 1)
+modulate = Color(0.2, 1, 0.2, 1)
 custom_minimum_size = Vector2(225, 0)
 layout_mode = 2
 texture = ExtResource("1_qtag7")
@@ -116,9 +237,16 @@ theme_override_constants/margin_bottom = 250
 [node name="Button" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer/Puzzle2"]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
+theme_override_colors/font_color = Color(0.7, 1, 0.7, 1)
+theme_override_fonts/font = ExtResource("2_y6bvn")
+theme_override_font_sizes/font_size = 34
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_normal")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_pressed")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_btn_disabled")
 
 [node name="arrowToPuzzle2" type="TextureRect" parent="PanelContainer/VBoxContainer/HBoxContainer"]
-modulate = Color(0, 0, 0, 1)
+modulate = Color(0.2, 1, 0.2, 1)
 custom_minimum_size = Vector2(225, 0)
 layout_mode = 2
 texture = ExtResource("1_qtag7")
@@ -135,3 +263,14 @@ theme_override_constants/margin_bottom = 250
 [node name="Button" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer/Puzzle3"]
 custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
+theme_override_colors/font_color = Color(0.7, 1, 0.7, 1)
+theme_override_fonts/font = ExtResource("2_y6bvn")
+theme_override_font_sizes/font_size = 34
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_normal")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_pressed")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_btn_disabled")
+
+[connection signal="input_event" from="BackArrow" to="." method="_on_back_arrow_input_event"]
+[connection signal="mouse_entered" from="BackArrow" to="." method="_on_back_arrow_mouse_entered"]
+[connection signal="mouse_exited" from="BackArrow" to="." method="_on_back_arrow_mouse_exited"]

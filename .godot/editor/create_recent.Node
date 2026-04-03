@@ -1,3 +1,7 @@
+CollisionPolygon2D
+CollisionShape2D
+Sprite2D
+Area2D
 Panel
 MarginContainer
 Label
@@ -8,7 +12,3 @@ VFlowContainer
 HBoxContainer
 Label      - Matches the "text" keyword.
 HFlowContainer
-VBoxContainer
-PanelContainer
-Control
-RichTextLabel

@@ -198,8 +198,9 @@ func process_command(cmd, parts):
 			print_to_terminal("--- [b][color=#00ffff]SYSTEM HELP MENU[/color][/b] ---")
 			print_to_terminal("  [color=#ffff00]ls[/color]      : List directory contents (use [color=#add8e6]-a[/color] for hidden files)")
 			print_to_terminal("  [color=#ffff00]cat[/color]     : Read a file")
-			print_to_terminal("  [color=#ffff00]grep[/color]    : Search a file")
+			print_to_terminal("  [color=#ffff00]grep[/color]    : Search a file (e.g., [color=#add8e6]grep admin access.log[/color])")
 			print_to_terminal("  [color=#ffff00]./[/color]      : Execute a program (e.g., [color=#add8e6]./script.sh user pass[/color])")
+			print_to_terminal("  [color=#ffff00]login[/color]   : Submit password (e.g., [color=#add8e6]login PASS[/color])")
 			print_to_terminal("  [color=#ffff00]clear[/color]   : Clear the terminal screen")
 			
 		"clear":
