@@ -1,25 +1,107 @@
-[gd_scene load_steps=4 format=3 uid="uid://cw64kr67rctjk"]
+[gd_scene load_steps=6 format=3 uid="uid://cw64kr67rctjk"]
 
 [ext_resource type="Script" uid="uid://cx6o38y3xpak6" path="res://scripts/playerprogressbar.gd" id="1_p47kh"]
-[ext_resource type="Texture2D" uid="uid://b6erp2sdas466" path="res://spites/green_progress.png" id="1_ssn65"]
-[ext_resource type="Texture2D" uid="uid://dwokvwne07w3v" path="res://spites/progress_under.png" id="2_tsr5r"]
+[ext_resource type="FontFile" uid="uid://dp5f5f5yei6ty" path="res://Fonts/Battlenet.ttf" id="2_font"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_frame"]
+bg_color = Color(0.04, 0.07, 0.05, 0.92)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.2, 1, 0.2, 0.9)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+shadow_color = Color(0.2, 1, 0.2, 0.22)
+shadow_size = 10
+shadow_offset = Vector2(0, 2)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bar_under"]
+bg_color = Color(0.02, 0.05, 0.06, 0.95)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.2, 1, 0.2, 0.5)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bar_fill"]
+bg_color = Color(0.2, 0.9, 0.45, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.6, 1, 0.6, 0.9)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
 
 [node name="Playerprogressbar" type="Node2D"]
 scale = Vector2(0.5, 0.5)
 script = ExtResource("1_p47kh")
 
-[node name="playerProgress" type="TextureProgressBar" parent="."]
+[node name="Frame" type="PanelContainer" parent="."]
 offset_right = 1186.0
-offset_bottom = 102.0
-max_value = 21.0
-nine_patch_stretch = true
-texture_under = ExtResource("2_tsr5r")
-texture_progress = ExtResource("1_ssn65")
+offset_bottom = 185.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_frame")
 
-[node name="progressScore" type="RichTextLabel" parent="."]
-offset_top = 82.0
-offset_right = 1186.0
-offset_bottom = 283.0
-theme_override_font_sizes/normal_font_size = 90
-text = "Progress: 0%"
-horizontal_alignment = 1
+[node name="MarginContainer" type="MarginContainer" parent="Frame"]
+layout_mode = 2
+theme_override_constants/margin_left = 28
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 28
+theme_override_constants/margin_bottom = 18
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Frame/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="HeaderRow" type="HBoxContainer" parent="Frame/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="TitleLabel" type="Label" parent="Frame/MarginContainer/VBoxContainer/HeaderRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.2, 1, 0.2, 1)
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 38
+text = "MISSION PROGRESS"
+
+[node name="PercentLabel" type="Label" parent="Frame/MarginContainer/VBoxContainer/HeaderRow"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.75, 1, 0.75, 1)
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 46
+text = "0%"
+horizontal_alignment = 2
+
+[node name="BarBack" type="Panel" parent="Frame/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_bar_under")
+
+[node name="BarFill" type="Panel" parent="Frame/MarginContainer/VBoxContainer/BarBack"]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_bar_fill")
+
+[node name="BarHighlight" type="ColorRect" parent="Frame/MarginContainer/VBoxContainer/BarBack"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 6.0
+grow_horizontal = 2
+mouse_filter = 2
+color = Color(1, 1, 1, 0.18)

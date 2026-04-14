@@ -1,3 +1,111 @@
-[gd_scene format=3 uid="uid://4lt68pdydgsk"]
+[gd_scene load_steps=6 format=3 uid="uid://4lt68pdydgsk"]
 
-[node name="Main" type="Node2D"]
+[ext_resource type="PackedScene" uid="uid://ygna2002qt13" path="res://scenes/3D/player_controller.tscn" id="2_0wfyh"]
+[ext_resource type="Script" uid="uid://bqmrcdj87wnbe" path="res://scripts/main.gd" id="2_maingd"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_o5qli"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_0wfyh"]
+sky_material = SubResource("ProceduralSkyMaterial_o5qli")
+
+[sub_resource type="Environment" id="Environment_sugp2"]
+background_mode = 2
+sky = SubResource("Sky_0wfyh")
+tonemap_mode = 2
+glow_enabled = true
+
+[node name="Main" type="Node3D"]
+script = ExtResource("2_maingd")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_sugp2")
+
+[node name="globe" type="CSGSphere3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1190357, 0)
+radius = 0.7
+radial_segments = 100
+rings = 100
+
+[node name="room_walls" type="CSGCombiner3D" parent="."]
+use_collision = true
+
+[node name="wall1" type="CSGBox3D" parent="room_walls"]
+transform = Transform3D(-4.3711385e-08, 0, 0.99999994, 0, 1, 0, -0.99999994, 0, -4.3711385e-08, -3.6, 1.1, 0)
+size = Vector3(7, 2.2, 0.2)
+
+[node name="wall2" type="CSGBox3D" parent="room_walls"]
+transform = Transform3D(-4.3711385e-08, 0, 0.99999994, 0, 1, 0, -0.99999994, 0, -4.3711385e-08, 3.6, 1.1, 0)
+size = Vector3(7, 2.2, 0.2)
+
+[node name="wall3" type="CSGBox3D" parent="room_walls"]
+transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, 0, 1.1, -3.6)
+size = Vector3(7, 2.2, 0.2)
+
+[node name="wall4" type="CSGBox3D" parent="room_walls"]
+transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, 0, 1.1, 3.6)
+size = Vector3(7, 2.2, 0.2)
+
+[node name="base" type="CSGBox3D" parent="room_walls"]
+size = Vector3(7, 0.1, 7)
+
+[node name="top" type="CSGBox3D" parent="room_walls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.2, 0)
+size = Vector3(7, 0.1, 7)
+
+[node name="curve_table" type="CSGTorus3D" parent="room_walls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
+inner_radius = 0.7
+outer_radius = 1.1
+sides = 64
+ring_sides = 64
+
+[node name="curvewall1" type="CSGBox3D" parent="room_walls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.7499995, 0.88812447, -2.6499999)
+size = Vector3(1.7, 2.8, 1.7)
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="room_walls/curvewall1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6500001, 0.21187556, 0.54999995)
+operation = 2
+radius = 1.236
+height = 4.019
+sides = 40
+
+[node name="curvewall2" type="CSGBox3D" parent="room_walls"]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 2.6499996, 0.88812447, 2.75)
+size = Vector3(1.7, 2.8, 1.7)
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="room_walls/curvewall2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6500001, 0.21187556, 0.54999995)
+operation = 2
+radius = 1.236
+height = 4.019
+sides = 40
+
+[node name="tv1" type="CSGCombiner3D" parent="."]
+
+[node name="tv1" type="CSGBox3D" parent="tv1"]
+transform = Transform3D(0.92495835, -0.17101005, 0.3394221, 0.17101008, 0.9848077, 0.030153697, -0.33942214, 0.0301537, 0.9401507, 1.65, 1.6365981, -1.8024518)
+size = Vector3(0.05, 0.90000004, 1.2)
+
+[node name="tv_bar1" type="CSGBox3D" parent="tv1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.6500001, 2, -1.8499999)
+size = Vector3(0.05, 0.6, 0.05)
+
+[node name="tv2" type="CSGCombiner3D" parent="."]
+
+[node name="tv_bar2" type="CSGBox3D" parent="tv2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.65, 2, 1.85)
+size = Vector3(0.05, 0.6, 0.05)
+
+[node name="tv2" type="CSGBox3D" parent="tv2"]
+transform = Transform3D(-0.8363105, -0.12991215, 0.53264177, -0.17185341, 0.9846757, -0.029666243, -0.5206255, -0.11634651, -0.8458206, 1.65, 1.637, 1.802)
+size = Vector3(0.05, 0.90000004, 1.2)
+
+[node name="PlayerController" parent="." instance=ExtResource("2_0wfyh")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -2.5171504, 0.34999985, -1.1496056)

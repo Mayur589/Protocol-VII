@@ -3,6 +3,7 @@ extends CanvasLayer
 @onready var panel = get_node_or_null("displayContainer")
 @onready var label = get_node_or_null("displayContainer/message")
 var tween: Tween
+var active_continent: Continent = null
 
 func _ready():
 	if panel:
@@ -24,10 +25,17 @@ func _enter_tree():
 func _force_hide():
 	if is_instance_valid(panel):
 		panel.hide()
+	active_continent = null
 
 func display(con_res):
-	if not is_instance_valid(panel) or not is_instance_valid(label): 
+	if not is_instance_valid(panel) or not is_instance_valid(label):
 		return
+	if con_res == null or not (con_res is Continent):
+		return
+	if active_continent == con_res and panel.visible:
+		_reposition()
+		return
+	active_continent = con_res
 	
 	label.clear()
 	if tween: tween.kill() 
@@ -114,8 +122,12 @@ func _get_continent_stats(con_name: String) -> Dictionary:
 					unlocked += 1
 	return {"unlocked": unlocked, "total": total}
 
-func hide_tooltip():
-	if not is_instance_valid(panel) or not panel.visible: return
+func hide_tooltip(con_res: Continent = null):
+	if con_res != null and con_res != active_continent:
+		return
+	if not is_instance_valid(panel) or not panel.visible:
+		return
+	active_continent = null
 	
 	if tween: tween.kill()
 	tween = create_tween().set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)

@@ -1,4 +1,4 @@
-extends Node2D
+extends Control
 
 const DEFAULT_TINT = Color("a4a4a4")
 const HOVER_TINT_BOOST = 0.25

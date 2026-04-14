@@ -22,6 +22,7 @@ var game_ended: bool = false
 var continent_puzzles: Dictionary = {}
 var notification_scene = preload("res://scenes/UI/notification.tscn")
 var notification_log: Array[String] = []
+var background_music = preload("res://music/background_players.tscn")
 
 var continent_accuire = {
 	"Asia": [0, false],
@@ -97,6 +98,9 @@ var continents: Array[String] = [
 ]
 
 func _ready() -> void:
+	var back_music = background_music.instantiate()
+	add_child(back_music)
+	
 	for continent in continents:
 		var scene = load(continent)
 		var instance = scene.instantiate()

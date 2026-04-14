@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://dwhj1o46rmgft"]
+[gd_scene load_steps=18 format=3 uid="uid://dwhj1o46rmgft"]
 
 [ext_resource type="FontFile" uid="uid://dp5f5f5yei6ty" path="res://Fonts/Battlenet.ttf" id="1_81rff"]
 [ext_resource type="Script" uid="uid://dru6v3cpmnyqc" path="res://scripts/desktop.gd" id="1_veafp"]
@@ -9,6 +9,8 @@
 [ext_resource type="Texture2D" uid="uid://ddqfe0kk133no" path="res://spites/map.png" id="6_6ajoh"]
 [ext_resource type="Texture2D" uid="uid://c1wxs11gx512k" path="res://spites/Window.png" id="7_stats"]
 [ext_resource type="Texture2D" uid="uid://cw7qeydngpdvd" path="res://spites/terminal.png" id="8_notifications"]
+[ext_resource type="PackedScene" uid="uid://cpnroma15ljox" path="res://music/select_audio.tscn" id="10_vcvwy"]
+[ext_resource type="PackedScene" uid="uid://b4swgyt3vdymh" path="res://music/menu_selection.tscn" id="11_nikxi"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6ajoh"]
 bg_color = Color(0.7921569, 0.7921569, 0.7921569, 1)
@@ -239,3 +241,8 @@ text = "[color=#ffffff][b]PLEASE [/b][/color][color=#ff2020][b]STOP[/b][/color][
 autowrap_trim_flags = 128
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="select_audio" parent="." instance=ExtResource("10_vcvwy")]
+volume_db = -10.0
+
+[node name="menu_selection" parent="." instance=ExtResource("11_nikxi")]

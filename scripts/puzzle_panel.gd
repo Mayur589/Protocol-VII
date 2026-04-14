@@ -20,6 +20,8 @@ var _typing_time: float
 var is_animation_finish: bool = false
 var _button_tweens: Dictionary = {}
 
+const CONTINENT_LOGO_DIR := "res://spites/contient_logo/"
+
 var lore_dic: Dictionary = {
 	"Africa": "Ancient place with very huge cultural history but taken over by a dictator from South America causing trouble to the whole world and their citizens.",
 	"Antarctica": "Covered with snow is home to many natural resources be it minerals or rare animal species, that can lead to new innovations in biological field as well as military and power. However no specific rules the continent.",
@@ -38,6 +40,7 @@ func _ready() -> void:
 	var unlocked_color := Color(0.2, 1.0, 0.2, 1.0)
 	arrow_to_puzzle_2.modulate = locked_color
 	arrow_to_puzzle_3.modulate = locked_color
+	_set_continent_logo(continent)
 	
 	if Global.continent_accuire[continent][0] >= 1:
 		arrow_to_puzzle_2.modulate = unlocked_color
@@ -49,9 +52,15 @@ func _ready() -> void:
 	setup_buttons()
 	_play_intro()
 
+func _set_continent_logo(continent: String) -> void:
+	var logo_path := CONTINENT_LOGO_DIR + continent + ".png"
+	if ResourceLoader.exists(logo_path):
+		continent_logo.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		continent_logo.texture = load(logo_path)
+
 func assign_image_to_button(id: String):
 	var id_split = id.split("_")
-	return id_split[0]
+	return id_split[0].to_upper()
 	
 func setup_buttons():
 	var continent = Global.current_continent

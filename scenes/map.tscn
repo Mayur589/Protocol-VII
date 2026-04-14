@@ -30,17 +30,25 @@ shadow_offset = Vector2(0, 2)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_blm8a"]
 size = Vector2(276, 138)
 
-[node name="Map" type="Node2D"]
-script = ExtResource("1_paxxb")
-
-[node name="MapFrame" type="PanelContainer" parent="."]
+[node name="Map" type="Control"]
+layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 2.0
-offset_top = 2.0
-offset_right = 1918.0
-offset_bottom = 1077.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 2
+script = ExtResource("1_paxxb")
+
+[node name="MapFrame" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 37.0
+offset_bottom = 98.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
@@ -53,8 +61,11 @@ layer = -10
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_right = 39.0
+offset_bottom = 93.0
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_vertical = 3
 mouse_filter = 1
 color = Color(0.024208516, 0.46136028, 0.77587044, 1)
 
@@ -66,25 +77,25 @@ scale = Vector2(0.3657143, 0.3085714)
 texture = ExtResource("10_blm8a")
 
 [node name="Asia" parent="." instance=ExtResource("2_jh32y")]
-position = Vector2(1454, 291)
+position = Vector2(1456, 371)
 
 [node name="Africa" parent="." instance=ExtResource("3_be0no")]
-position = Vector2(978, 637)
+position = Vector2(980, 717)
 
 [node name="antarctica" parent="." instance=ExtResource("4_blm8a")]
-position = Vector2(962, 1033)
+position = Vector2(963, 1117)
 
 [node name="Europe" parent="." instance=ExtResource("5_mlgqr")]
-position = Vector2(897, 256)
+position = Vector2(899, 336)
 
 [node name="North_America" parent="." instance=ExtResource("6_wslke")]
-position = Vector2(352, 318)
+position = Vector2(354, 398)
 
 [node name="Oceania" parent="." instance=ExtResource("7_gw3fx")]
-position = Vector2(1660, 759)
+position = Vector2(1702, 878)
 
 [node name="South_America" parent="." instance=ExtResource("8_n1psn")]
-position = Vector2(514, 756)
+position = Vector2(516, 836)
 
 [node name="BackArrow" type="Area2D" parent="."]
 position = Vector2(1755, 100)
@@ -99,7 +110,7 @@ position = Vector2(0, 1)
 shape = SubResource("RectangleShape2D_blm8a")
 
 [node name="Playerprogressbar" parent="." instance=ExtResource("11_mlgqr")]
-position = Vector2(649, 25)
+position = Vector2(710, 0)
 
 [connection signal="input_event" from="BackArrow" to="." method="_on_back_arrow_input_event"]
 [connection signal="mouse_entered" from="BackArrow" to="." method="_on_back_arrow_mouse_entered"]

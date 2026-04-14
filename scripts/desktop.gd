@@ -6,6 +6,8 @@ extends Control
 @onready var map: Button = $Map
 @onready var stats: Button = $Stats
 @onready var notifications: Button = $Notifications
+@onready var select_audio: AudioStreamPlayer = $select_audio
+@onready var menu_selection: AudioStreamPlayer = $menu_selection
 
 var shake_tween: Tween
 var original_position: Vector2
@@ -25,6 +27,7 @@ func _on_start_button_pressed():
 	allow -= 1
 	
 	if allow == 0:
+		select_audio.play()
 		start_button.disabled = true
 		shake_screen()
 		await get_tree().create_timer(0.5).timeout
@@ -36,12 +39,18 @@ func _on_close_annoy_window():
 	start_button.disabled = false
 
 func _on_map_clicked():
+	menu_selection.play()
+	await get_tree().create_timer(0.1).timeout
 	get_tree().change_scene_to_file("res://scenes/map.tscn")
 
 func _on_stats_clicked():
+	menu_selection.play()
+	await get_tree().create_timer(0.1).timeout
 	get_tree().change_scene_to_file("res://scenes/stats.tscn")
 
 func _on_notifications_clicked():
+	menu_selection.play()
+	await get_tree().create_timer(0.1).timeout
 	get_tree().change_scene_to_file("res://scenes/notification_log.tscn")
 
 func shake_screen():

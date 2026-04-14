@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://b8pk7swrsrxc8"]
+[gd_scene load_steps=5 format=3 uid="uid://ctretrohgymri"]
 
 [ext_resource type="Script" uid="uid://c6wghe2q0f5ct" path="res://scripts/Continent/puzzle_display.gd" id="1_7j8dr"]
 [ext_resource type="Texture2D" uid="uid://lxoimq4f0day" path="res://spites/backArrow.png" id="2_7j8dr"]

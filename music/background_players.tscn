@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://caopppavh3roc"]
+
+[ext_resource type="AudioStream" uid="uid://b7kmwv785c7hb" path="res://Sounds/ProtocolVII_BGM_1.mp3" id="1_4krj8"]
+
+[node name="Background_player" type="AudioStreamPlayer"]
+stream = ExtResource("1_4krj8")
+autoplay = true

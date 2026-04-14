@@ -49,5 +49,3 @@ theme_override_font_sizes/normal_font_size = 20
 bbcode_enabled = true
 fit_content = true
 
-[connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]
-[connection signal="mouse_exited" from="Area2D" to="." method="_on_area_2d_mouse_exited"]
