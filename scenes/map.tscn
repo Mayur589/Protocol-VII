@@ -47,8 +47,6 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = 37.0
-offset_bottom = 98.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
@@ -61,57 +59,57 @@ layer = -10
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = 39.0
-offset_bottom = 93.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_vertical = 3
 mouse_filter = 1
 color = Color(0.024208516, 0.46136028, 0.77587044, 1)
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="MapContent" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="MapContent"]
 visible = false
 z_index = -1
 position = Vector2(961, 540)
 scale = Vector2(0.3657143, 0.3085714)
 texture = ExtResource("10_blm8a")
 
-[node name="Asia" parent="." instance=ExtResource("2_jh32y")]
-position = Vector2(1456, 371)
+[node name="Asia" parent="MapContent" instance=ExtResource("2_jh32y")]
+position = Vector2(1461, 332)
 
-[node name="Africa" parent="." instance=ExtResource("3_be0no")]
-position = Vector2(980, 717)
+[node name="Africa" parent="MapContent" instance=ExtResource("3_be0no")]
+position = Vector2(985, 678)
 
-[node name="antarctica" parent="." instance=ExtResource("4_blm8a")]
-position = Vector2(963, 1117)
+[node name="antarctica" parent="MapContent" instance=ExtResource("4_blm8a")]
+position = Vector2(960, 1042)
 
-[node name="Europe" parent="." instance=ExtResource("5_mlgqr")]
-position = Vector2(899, 336)
+[node name="Europe" parent="MapContent" instance=ExtResource("5_mlgqr")]
+position = Vector2(904, 297)
 
-[node name="North_America" parent="." instance=ExtResource("6_wslke")]
-position = Vector2(354, 398)
+[node name="North_America" parent="MapContent" instance=ExtResource("6_wslke")]
+position = Vector2(359, 359)
 
-[node name="Oceania" parent="." instance=ExtResource("7_gw3fx")]
-position = Vector2(1702, 878)
+[node name="Oceania" parent="MapContent" instance=ExtResource("7_gw3fx")]
+position = Vector2(1707, 839)
 
-[node name="South_America" parent="." instance=ExtResource("8_n1psn")]
-position = Vector2(516, 836)
+[node name="South_America" parent="MapContent" instance=ExtResource("8_n1psn")]
+position = Vector2(521, 797)
 
-[node name="BackArrow" type="Area2D" parent="."]
+[node name="Playerprogressbar" parent="MapContent" instance=ExtResource("11_mlgqr")]
+position = Vector2(710, 0)
+
+[node name="BackArrow" type="Area2D" parent="MapContent"]
 position = Vector2(1755, 100)
 scale = Vector2(0.5, 0.5)
 
-[node name="Sprite2D" type="Sprite2D" parent="BackArrow"]
+[node name="Sprite2D" type="Sprite2D" parent="MapContent/BackArrow"]
 modulate = Color(0.8037286, 0.7974856, 0.8124361, 1)
 texture = ExtResource("9_be0no")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="BackArrow"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MapContent/BackArrow"]
 position = Vector2(0, 1)
 shape = SubResource("RectangleShape2D_blm8a")
 
-[node name="Playerprogressbar" parent="." instance=ExtResource("11_mlgqr")]
-position = Vector2(710, 0)
-
-[connection signal="input_event" from="BackArrow" to="." method="_on_back_arrow_input_event"]
-[connection signal="mouse_entered" from="BackArrow" to="." method="_on_back_arrow_mouse_entered"]
-[connection signal="mouse_exited" from="BackArrow" to="." method="_on_back_arrow_mouse_exited"]
+[connection signal="input_event" from="MapContent/BackArrow" to="." method="_on_back_arrow_input_event"]
+[connection signal="mouse_entered" from="MapContent/BackArrow" to="." method="_on_back_arrow_mouse_entered"]
+[connection signal="mouse_exited" from="MapContent/BackArrow" to="." method="_on_back_arrow_mouse_exited"]

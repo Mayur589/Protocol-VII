@@ -7,6 +7,7 @@ const GLOW_RADIUS = 3.5
 const GLOW_SOFTNESS = 0.45
 const GLOW_COLOR = Color(0.25, 1.0, 0.55, 1.0)
 const GLOW_SHADER = preload("res://Shader/continent_glow.gdshader")
+const TARGET_RESOLUTION = Vector2(1920.0, 1080.0)
 const CONTINENT_TINTS = {
 	"Africa": Color("7fcb7a"),
 	"Asia": Color("5db6ff"),
@@ -16,13 +17,30 @@ const CONTINENT_TINTS = {
 	"Oceania": Color("4fd1c5"),
 	"Antarctica": Color("b7e3ff")
 }
-@onready var back_arrow: Sprite2D = $BackArrow/Sprite2D
+@onready var map_content: Node2D = $MapContent
+@onready var back_arrow: Sprite2D = $MapContent/BackArrow/Sprite2D
 
 func _ready() -> void:
-	for child in get_children():
-		for nested_child in child.get_children():
-			if nested_child is Area2D:
-				_setup_continent(nested_child)
+	get_viewport().size_changed.connect(_update_map_layout)
+	_update_map_layout()
+
+	for area in find_children("*", "Area2D", true, false):
+		if area is Area2D and "con_res" in area.get_parent():
+			_setup_continent(area)
+
+func _update_map_layout() -> void:
+	var viewport_size := get_viewport_rect().size
+	if viewport_size.x <= 0.0 or viewport_size.y <= 0.0:
+		return
+
+	var scale_factor : float = max(
+		viewport_size.x / TARGET_RESOLUTION.x,
+		viewport_size.y / TARGET_RESOLUTION.y
+	)
+	var scaled_size := TARGET_RESOLUTION * scale_factor
+
+	map_content.scale = Vector2.ONE * scale_factor
+	map_content.position = (viewport_size - scaled_size) * 0.5
 	
 func _setup_continent(area: Area2D) -> void:
 	if area.has_node("Sprite2D"):

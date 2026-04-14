@@ -1,11 +1,16 @@
-[gd_scene load_steps=6 format=3 uid="uid://4lt68pdydgsk"]
+[gd_scene load_steps=24 format=3 uid="uid://4lt68pdydgsk"]
 
 [ext_resource type="PackedScene" uid="uid://ygna2002qt13" path="res://scenes/3D/player_controller.tscn" id="2_0wfyh"]
+[ext_resource type="PackedScene" uid="uid://8evtfrt3nnqh" path="res://scenes/notification_log.tscn" id="2_jyhfs"]
 [ext_resource type="Script" uid="uid://bqmrcdj87wnbe" path="res://scripts/main.gd" id="2_maingd"]
+[ext_resource type="PackedScene" uid="uid://c7j6f0bx2wrg3" path="res://scenes/stats.tscn" id="2_tbgi4"]
+[ext_resource type="Texture2D" uid="uid://dw125koxofkpn" path="res://spites/worldMap.jpg" id="3_worldmap"]
+[ext_resource type="PackedScene" uid="uid://dwhj1o46rmgft" path="res://scenes/desktop.tscn" id="4_tefeu"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_o5qli"]
-sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
-ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+sky_top_color = Color(0.003921569, 0.011764706, 0.03137255, 1)
+sky_horizon_color = Color(0.019607844, 0.03137255, 0.078431375, 1)
+ground_horizon_color = Color(0.011764706, 0.023529412, 0.047058824, 1)
 
 [sub_resource type="Sky" id="Sky_0wfyh"]
 sky_material = SubResource("ProceduralSkyMaterial_o5qli")
@@ -15,12 +20,123 @@ background_mode = 2
 sky = SubResource("Sky_0wfyh")
 tonemap_mode = 2
 glow_enabled = true
+glow_intensity = 0.75
+
+[sub_resource type="Shader" id="Shader_holo_globe"]
+code = "shader_type spatial;
+render_mode unshaded, cull_disabled, blend_mix, fog_disabled;
+
+uniform sampler2D world_map : source_color;
+uniform vec4 glow_color : source_color = vec4(0.0, 0.85, 1.0, 1.0);
+uniform float alpha = 0.2;
+uniform float glow_strength = 0.5;
+uniform float scanline_density = 180.0;
+
+void fragment() {
+	vec2 uv = UV;
+	vec2 map_uv = vec2(fract(uv.x + TIME * 0.022), uv.y);
+	vec3 map_tex = texture(world_map, map_uv).rgb;
+	float land_mask = smoothstep(0.34, 0.6, dot(map_tex, vec3(0.3333)));
+	float map_outline = smoothstep(0.45, 0.52, land_mask) - smoothstep(0.52, 0.59, land_mask);
+	float scan = 0.72 + 0.28 * sin((uv.y + TIME * 0.65) * scanline_density);
+	float latitude = 0.85 + 0.15 * sin((uv.y + TIME * 0.2) * 140.0);
+	float longitude = 0.85 + 0.15 * sin((uv.x - TIME * 0.25) * 95.0);
+	float grid = latitude * longitude;
+	float fresnel = pow(1.0 - clamp(dot(normalize(NORMAL), normalize(VIEW)), 0.0, 1.0), 3.1);
+	float core = 0.35 + 0.25 * grid;
+	float overlay = (land_mask * 0.8 + map_outline * 1.35) * (0.8 + 0.2 * sin(TIME * 2.0));
+	vec3 base_color = glow_color.rgb * (0.5 + core);
+	vec3 overlay_color = mix(glow_color.rgb, vec3(0.65, 1.0, 1.0), 0.5) * overlay;
+	vec3 holo = base_color + overlay_color;
+	ALBEDO = holo * 0.16;
+	EMISSION = holo * (glow_strength * scan + fresnel * 2.2);
+	ALPHA = alpha * (0.82 + fresnel * 0.18);
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_holo_globe"]
+render_priority = 0
+shader = SubResource("Shader_holo_globe")
+shader_parameter/world_map = ExtResource("3_worldmap")
+shader_parameter/glow_color = Color(0, 0.85, 1, 1)
+shader_parameter/alpha = 0.62
+shader_parameter/glow_strength = 4.2
+shader_parameter/scanline_density = 180.0
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_jyhfs"]
+viewport_path = NodePath("NotificationsViewport")
+
+[sub_resource type="ViewportTexture" id="SubViewportTexture_stats"]
+viewport_path = NodePath("StatsViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_top_stats"]
+resource_local_to_scene = true
+albedo_texture = SubResource("ViewportTexture_jyhfs")
+emission = Color(0.35, 0.95, 1, 1)
+emission_energy_multiplier = 1.2
+emission_texture = SubResource("SubViewportTexture_stats")
+uv2_offset = Vector3(0.53, 0, 0)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_screen_frame"]
+albedo_color = Color(0.07, 0.08, 0.12, 1)
+metallic = 0.9
+roughness = 0.28
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_tefeu"]
+viewport_path = NodePath("StatsViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o6xl0"]
+resource_local_to_scene = true
+albedo_texture = SubResource("ViewportTexture_tefeu")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_o6xl0"]
+viewport_path = NodePath("DesktopViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tipki"]
+resource_local_to_scene = true
+albedo_texture = SubResource("ViewportTexture_o6xl0")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_monitor_click"]
+size = Vector3(0.8, 0.5, 0.1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_guard_floor"]
+size = Vector3(8.6, 1.2, 8.6)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_guard_wall_ns"]
+size = Vector3(8.6, 3, 0.6)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_guard_wall_ew"]
+size = Vector3(0.6, 3, 8.6)
 
 [node name="Main" type="Node3D"]
 script = ExtResource("2_maingd")
 
+[node name="StatsViewport" type="SubViewport" parent="."]
+disable_3d = true
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(792, 512)
+render_target_update_mode = 4
+
+[node name="Stats" parent="StatsViewport" instance=ExtResource("2_tbgi4")]
+
+[node name="NotificationsViewport" type="SubViewport" parent="."]
+disable_3d = true
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(1270, 1010)
+render_target_update_mode = 4
+
+[node name="NotificationLog" parent="NotificationsViewport" instance=ExtResource("2_jyhfs")]
+
+[node name="DesktopViewport" type="SubViewport" parent="."]
+size = Vector2i(1772, 1202)
+
+[node name="Desktop" parent="DesktopViewport" instance=ExtResource("4_tefeu")]
+
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+light_color = Color(0.48, 0.56, 0.95, 1)
+light_energy = 0.42
 shadow_enabled = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -28,38 +144,46 @@ environment = SubResource("Environment_sugp2")
 
 [node name="globe" type="CSGSphere3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1190357, 0)
-radius = 0.7
+radius = 0.82
 radial_segments = 100
 rings = 100
+material = SubResource("ShaderMaterial_holo_globe")
 
 [node name="room_walls" type="CSGCombiner3D" parent="."]
 use_collision = true
 
 [node name="wall1" type="CSGBox3D" parent="room_walls"]
 transform = Transform3D(-4.3711385e-08, 0, 0.99999994, 0, 1, 0, -0.99999994, 0, -4.3711385e-08, -3.6, 1.1, 0)
+use_collision = true
 size = Vector3(7, 2.2, 0.2)
 
 [node name="wall2" type="CSGBox3D" parent="room_walls"]
 transform = Transform3D(-4.3711385e-08, 0, 0.99999994, 0, 1, 0, -0.99999994, 0, -4.3711385e-08, 3.6, 1.1, 0)
+use_collision = true
 size = Vector3(7, 2.2, 0.2)
 
 [node name="wall3" type="CSGBox3D" parent="room_walls"]
 transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, 0, 1.1, -3.6)
+use_collision = true
 size = Vector3(7, 2.2, 0.2)
 
 [node name="wall4" type="CSGBox3D" parent="room_walls"]
 transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, 0, 1.1, 3.6)
+use_collision = true
 size = Vector3(7, 2.2, 0.2)
 
 [node name="base" type="CSGBox3D" parent="room_walls"]
+use_collision = true
 size = Vector3(7, 0.1, 7)
 
 [node name="top" type="CSGBox3D" parent="room_walls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.2, 0)
+use_collision = true
 size = Vector3(7, 0.1, 7)
 
 [node name="curve_table" type="CSGTorus3D" parent="room_walls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
+use_collision = true
 inner_radius = 0.7
 outer_radius = 1.1
 sides = 64
@@ -67,6 +191,7 @@ ring_sides = 64
 
 [node name="curvewall1" type="CSGBox3D" parent="room_walls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.7499995, 0.88812447, -2.6499999)
+use_collision = true
 size = Vector3(1.7, 2.8, 1.7)
 
 [node name="CSGCylinder3D" type="CSGCylinder3D" parent="room_walls/curvewall1"]
@@ -78,6 +203,7 @@ sides = 40
 
 [node name="curvewall2" type="CSGBox3D" parent="room_walls"]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 2.6499996, 0.88812447, 2.75)
+use_collision = true
 size = Vector3(1.7, 2.8, 1.7)
 
 [node name="CSGCylinder3D" type="CSGCylinder3D" parent="room_walls/curvewall2"]
@@ -88,24 +214,107 @@ height = 4.019
 sides = 40
 
 [node name="tv1" type="CSGCombiner3D" parent="."]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 1.7916867, 1.6271212, 1.9000001)
 
-[node name="tv1" type="CSGBox3D" parent="tv1"]
-transform = Transform3D(0.92495835, -0.17101005, 0.3394221, 0.17101008, 0.9848077, 0.030153697, -0.33942214, 0.0301537, 0.9401507, 1.65, 1.6365981, -1.8024518)
-size = Vector3(0.05, 0.90000004, 1.2)
+[node name="TopRightScreenDisplay" type="CSGBox3D" parent="tv1"]
+transform = Transform3D(1, 0, 0, 0, -4.3711147e-08, -0.999981, 0, 0.99999446, -4.3710557e-08, 0.049999952, 0, 0.009999752)
+flip_faces = true
+size = Vector3(0, 1.2, 0.8)
+material = SubResource("StandardMaterial3D_top_stats")
 
-[node name="tv_bar1" type="CSGBox3D" parent="tv1"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.6500001, 2, -1.8499999)
-size = Vector3(0.05, 0.6, 0.05)
+[node name="TopRightScreenFrame" type="CSGBox3D" parent="tv1"]
+transform = Transform3D(1, 0, 0, 0, 0.99999446, 0, 0, 0, 0.999981, 0, 0, 0)
+size = Vector3(0.08, 1, 1.4)
+material = SubResource("StandardMaterial3D_screen_frame")
 
 [node name="tv2" type="CSGCombiner3D" parent="."]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 1.7916867, 1.6271212, -1.8)
 
-[node name="tv_bar2" type="CSGBox3D" parent="tv2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.65, 2, 1.85)
-size = Vector3(0.05, 0.6, 0.05)
+[node name="TopRightScreenDisplay" type="CSGBox3D" parent="tv2"]
+transform = Transform3D(0.005241597, -7.1054274e-15, 0, 0, -3.4968913e-08, -1.1999772, 2.7755576e-17, 0.79999554, -5.2452666e-08, 0.05000007, 0, 0)
+flip_faces = true
+size = Vector3(1, 1.5, 0.6)
+material = SubResource("StandardMaterial3D_o6xl0")
 
-[node name="tv2" type="CSGBox3D" parent="tv2"]
-transform = Transform3D(-0.8363105, -0.12991215, 0.53264177, -0.17185341, 0.9846757, -0.029666243, -0.5206255, -0.11634651, -0.8458206, 1.65, 1.637, 1.802)
-size = Vector3(0.05, 0.90000004, 1.2)
+[node name="TopRightScreenFrame" type="CSGBox3D" parent="tv2"]
+transform = Transform3D(1, 0, 0, 0, 0.99999446, 0, 0, 0, 0.999981, 0, 0, 0)
+size = Vector3(0.08, 1, 1.4)
+material = SubResource("StandardMaterial3D_screen_frame")
+
+[node name="DesktopStation" type="Node3D" parent="."]
+transform = Transform3D(-0.99999994, 0, -8.742277e-08, 0, 1, 0, 8.742277e-08, 0, -0.99999994, -2.05, 0, 3.05)
+
+[node name="MonitorFrame" type="CSGBox3D" parent="DesktopStation"]
+transform = Transform3D(0.9999999, 0, 0, 0, 0.9781476, -0.2079117, 7.1054274e-15, 0.20791167, 0.9781475, 0, 0.83, -0.22000003)
+size = Vector3(0.9, 0.54, 0.05)
+material = SubResource("StandardMaterial3D_screen_frame")
+
+[node name="MonitorDisplay" type="CSGBox3D" parent="DesktopStation"]
+transform = Transform3D(-0.9999999, 8.742278e-08, 0, -8.5512376e-08, -0.9781476, -0.20791167, -1.8176216e-08, -0.2079117, 0.9781475, 0, 0.83, -0.18000007)
+flip_faces = true
+size = Vector3(0.78, 0.44, 0.01)
+material = SubResource("StandardMaterial3D_tipki")
+
+[node name="MonitorClickArea" type="Area3D" parent="DesktopStation"]
+transform = Transform3D(0.99999994, -1.7763568e-15, -7.1054274e-15, 0, 0.9781476, -0.20791163, 7.1054274e-15, 0.20791161, 0.97814757, 0, 0.7, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DesktopStation/MonitorClickArea"]
+transform = Transform3D(1, -5.3290705e-15, -7.1054274e-15, 8.881784e-15, 1.0000002, -1.1920929e-07, 6.3948846e-14, 1.6391277e-07, 1.0000002, 0, 0.07725954, -0.26178718)
+shape = SubResource("BoxShape3D_monitor_click")
 
 [node name="PlayerController" parent="." instance=ExtResource("2_0wfyh")]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -2.5171504, 0.34999985, -1.1496056)
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -2.2, 0.3, 0.29999995)
+walk_speed = 2.0
+
+[node name="CollisionGuards" type="Node3D" parent="."]
+
+[node name="FloorGuard" type="StaticBody3D" parent="CollisionGuards"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.65, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CollisionGuards/FloorGuard"]
+shape = SubResource("BoxShape3D_guard_floor")
+
+[node name="NorthGuard" type="StaticBody3D" parent="CollisionGuards"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1, -4.05)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CollisionGuards/NorthGuard"]
+shape = SubResource("BoxShape3D_guard_wall_ns")
+
+[node name="SouthGuard" type="StaticBody3D" parent="CollisionGuards"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1, 4.05)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CollisionGuards/SouthGuard"]
+shape = SubResource("BoxShape3D_guard_wall_ns")
+
+[node name="WestGuard" type="StaticBody3D" parent="CollisionGuards"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.05, 1.1, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CollisionGuards/WestGuard"]
+shape = SubResource("BoxShape3D_guard_wall_ew")
+
+[node name="EastGuard" type="StaticBody3D" parent="CollisionGuards"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.05, 1.1, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CollisionGuards/EastGuard"]
+shape = SubResource("BoxShape3D_guard_wall_ew")
+
+[node name="GlobeLight" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.35, 0)
+light_color = Color(0.2, 0.9, 1, 1)
+light_energy = 1.6
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="Crosshair" type="ColorRect" parent="HUD"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -3.0
+offset_top = -3.0
+offset_right = 3.0
+offset_bottom = 3.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.9, 1, 1, 0.95)
