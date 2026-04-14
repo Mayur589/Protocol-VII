@@ -15,6 +15,7 @@ var original_position: Vector2
 var allow = 3
 
 func _ready() -> void:
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	annoy_window.visible = false
 	original_position = position
 	start_button.connect("button_down", _on_start_button_pressed)
@@ -52,6 +53,21 @@ func _on_notifications_clicked():
 	menu_selection.play()
 	await get_tree().create_timer(0.1).timeout
 	get_tree().change_scene_to_file("res://scenes/notification_log.tscn")
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("ui_cancel"):
+		_return_to_main()
+		return
+
+	if event is InputEventKey and event.pressed and event.keycode == KEY_ESCAPE:
+		_return_to_main()
+
+func _return_to_main() -> void:
+	var viewport := get_viewport()
+	if viewport != null:
+		viewport.set_input_as_handled()
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	get_tree().change_scene_to_file("res://scenes/main.tscn")
 
 func shake_screen():
 	if shake_tween:

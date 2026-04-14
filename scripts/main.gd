@@ -21,6 +21,14 @@ func _ready() -> void:
 	if is_instance_valid(globe):
 		_base_globe_y = globe.position.y
 
+	if Global.get("should_restore_desktop_return"):
+		if is_instance_valid(player_body):
+			player_body.global_position = Global.desktop_return_player_pos
+		if is_instance_valid(player_camera):
+			player_camera.rotation = Global.desktop_return_camera_rot
+		Global.should_restore_desktop_return = false
+		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+
 func _process(delta: float) -> void:
 	if not is_instance_valid(globe):
 		return
@@ -35,9 +43,9 @@ func _process(delta: float) -> void:
 		_update_top_monitors()
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("ui_enter") and _player_near_desktop:
-		get_tree().change_scene_to_file("res://scenes/desktop.tscn")
-		return
+	#if event.is_action_pressed("ui_enter") and _player_near_desktop:
+		#get_tree().change_scene_to_file("res://scenes/desktop.tscn")
+		#return
 
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.is_pressed():
 		_try_open_desktop_from_click()
@@ -45,22 +53,24 @@ func _unhandled_input(event: InputEvent) -> void:
 func _try_open_desktop_from_click() -> void:
 	if player_camera == null or monitor_click_area == null:
 		return
-
 	var viewport_size := get_viewport().get_visible_rect().size
 	var screen_center := viewport_size * 0.5
 	var ray_origin := player_camera.project_ray_origin(screen_center)
 	var ray_end := ray_origin + player_camera.project_ray_normal(screen_center) * monitor_click_range
-
 	var query := PhysicsRayQueryParameters3D.create(ray_origin, ray_end)
 	query.collide_with_areas = true
 	query.collide_with_bodies = true
-
 	var hit := get_world_3d().direct_space_state.intersect_ray(query)
 	if hit.is_empty():
 		return
-
 	var collider = hit["collider"]
-	if collider == monitor_click_area:
+	if collider == monitor_click_area or collider.get_parent() == monitor_click_area:
+		if is_instance_valid(player_body):
+			Global.desktop_return_player_pos = player_body.global_position
+		if is_instance_valid(player_camera):
+			Global.desktop_return_camera_rot = player_camera.rotation
+		Global.should_restore_desktop_return = true
+		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 		get_tree().change_scene_to_file("res://scenes/desktop.tscn")
 
 func _update_top_monitors() -> void:

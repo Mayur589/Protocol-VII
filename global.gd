@@ -19,6 +19,11 @@ var current_puzzle_id: String = ""
 var omni_awareness: int = 0 
 var game_ended: bool = false
 
+# Snapshot used to return from desktop scene to the same main-scene location.
+var desktop_return_player_pos: Vector3 = Vector3.ZERO
+var desktop_return_camera_rot: Vector3 = Vector3.ZERO
+var should_restore_desktop_return: bool = false
+
 var continent_puzzles: Dictionary = {}
 var notification_scene = preload("res://scenes/UI/notification.tscn")
 var notification_log: Array[String] = []

@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://bsx1l5oxvrrsd" path="res://scripts/3D/player_controller.gd" id="1_wehds"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_1g3f2"]
-radius = 0.09
+radius = 0.01
 height = 0.5
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_1g3f2"]

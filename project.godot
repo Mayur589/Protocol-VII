@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="learn"
-run/main_scene="uid://dwhj1o46rmgft"
+run/main_scene="uid://4lt68pdydgsk"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="uid://dknvcotl24lei"
 
@@ -38,7 +38,8 @@ folder_colors={
 "res://music/": "teal",
 "res://scenes/": "green",
 "res://scripts/": "red",
-"res://spites/": "yellow"
+"res://spites/": "yellow",
+"res://textures/": "teal"
 }
 
 [input]

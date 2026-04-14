@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://4lt68pdydgsk"]
+[gd_scene load_steps=28 format=3 uid="uid://4lt68pdydgsk"]
 
 [ext_resource type="PackedScene" uid="uid://ygna2002qt13" path="res://scenes/3D/player_controller.tscn" id="2_0wfyh"]
 [ext_resource type="PackedScene" uid="uid://8evtfrt3nnqh" path="res://scenes/notification_log.tscn" id="2_jyhfs"]
@@ -6,6 +6,10 @@
 [ext_resource type="PackedScene" uid="uid://c7j6f0bx2wrg3" path="res://scenes/stats.tscn" id="2_tbgi4"]
 [ext_resource type="Texture2D" uid="uid://dw125koxofkpn" path="res://spites/worldMap.jpg" id="3_worldmap"]
 [ext_resource type="PackedScene" uid="uid://dwhj1o46rmgft" path="res://scenes/desktop.tscn" id="4_tefeu"]
+[ext_resource type="Material" path="res://textures/Metal046B_2K-JPG/Metal046B_2K-JPG.tres" id="6_85g3d"]
+[ext_resource type="Material" path="res://textures/Metal055A_2K-JPG/Metal055A_2K-JPG.tres" id="7_tipki"]
+[ext_resource type="Material" path="res://textures/Metal032_2K-JPG/Metal032_2K-JPG.tres" id="8_85g3d"]
+[ext_resource type="Shader" uid="uid://doltjxb4kbn15" path="res://Shader/globe_lit_control.gdshader" id="9_globe_lit"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_o5qli"]
 sky_top_color = Color(0.003921569, 0.011764706, 0.03137255, 1)
@@ -22,45 +26,26 @@ tonemap_mode = 2
 glow_enabled = true
 glow_intensity = 0.75
 
-[sub_resource type="Shader" id="Shader_holo_globe"]
-code = "shader_type spatial;
-render_mode unshaded, cull_disabled, blend_mix, fog_disabled;
-
-uniform sampler2D world_map : source_color;
-uniform vec4 glow_color : source_color = vec4(0.0, 0.85, 1.0, 1.0);
-uniform float alpha = 0.2;
-uniform float glow_strength = 0.5;
-uniform float scanline_density = 180.0;
-
-void fragment() {
-	vec2 uv = UV;
-	vec2 map_uv = vec2(fract(uv.x + TIME * 0.022), uv.y);
-	vec3 map_tex = texture(world_map, map_uv).rgb;
-	float land_mask = smoothstep(0.34, 0.6, dot(map_tex, vec3(0.3333)));
-	float map_outline = smoothstep(0.45, 0.52, land_mask) - smoothstep(0.52, 0.59, land_mask);
-	float scan = 0.72 + 0.28 * sin((uv.y + TIME * 0.65) * scanline_density);
-	float latitude = 0.85 + 0.15 * sin((uv.y + TIME * 0.2) * 140.0);
-	float longitude = 0.85 + 0.15 * sin((uv.x - TIME * 0.25) * 95.0);
-	float grid = latitude * longitude;
-	float fresnel = pow(1.0 - clamp(dot(normalize(NORMAL), normalize(VIEW)), 0.0, 1.0), 3.1);
-	float core = 0.35 + 0.25 * grid;
-	float overlay = (land_mask * 0.8 + map_outline * 1.35) * (0.8 + 0.2 * sin(TIME * 2.0));
-	vec3 base_color = glow_color.rgb * (0.5 + core);
-	vec3 overlay_color = mix(glow_color.rgb, vec3(0.65, 1.0, 1.0), 0.5) * overlay;
-	vec3 holo = base_color + overlay_color;
-	ALBEDO = holo * 0.16;
-	EMISSION = holo * (glow_strength * scan + fresnel * 2.2);
-	ALPHA = alpha * (0.82 + fresnel * 0.18);
-}"
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_holo_globe"]
 render_priority = 0
-shader = SubResource("Shader_holo_globe")
+shader = ExtResource("9_globe_lit")
 shader_parameter/world_map = ExtResource("3_worldmap")
-shader_parameter/glow_color = Color(0, 0.85, 1, 1)
-shader_parameter/alpha = 0.62
-shader_parameter/glow_strength = 4.2
-shader_parameter/scanline_density = 180.0
+shader_parameter/ocean_color = Color(0.04, 0.11, 0.18, 1)
+shader_parameter/land_color = Color(0.19, 0.4, 0.52, 1)
+shader_parameter/emission_color = Color(0.16, 0.72, 1, 1)
+shader_parameter/continent_threshold = 0.55
+shader_parameter/continent_softness = 0.08
+shader_parameter/roughness_ocean = 0.52
+shader_parameter/roughness_land = 0.62
+shader_parameter/metallic_level = 0.18
+shader_parameter/emission_strength = 0.45
+shader_parameter/fresnel_glow_strength = 0.75
+shader_parameter/scanline_density = 165.0
+shader_parameter/scanline_speed = 0.45
+shader_parameter/grid_strength = 0.35
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_trceg"]
+albedo_color = Color(0.101960786, 0.101960786, 0.101960786, 1)
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_jyhfs"]
 viewport_path = NodePath("NotificationsViewport")
@@ -74,6 +59,7 @@ albedo_texture = SubResource("ViewportTexture_jyhfs")
 emission = Color(0.35, 0.95, 1, 1)
 emission_energy_multiplier = 1.2
 emission_texture = SubResource("SubViewportTexture_stats")
+rim_enabled = true
 uv2_offset = Vector3(0.53, 0, 0)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_screen_frame"]
@@ -87,6 +73,7 @@ viewport_path = NodePath("StatsViewport")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o6xl0"]
 resource_local_to_scene = true
 albedo_texture = SubResource("ViewportTexture_tefeu")
+rim_enabled = true
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_o6xl0"]
 viewport_path = NodePath("DesktopViewport")
@@ -94,6 +81,8 @@ viewport_path = NodePath("DesktopViewport")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tipki"]
 resource_local_to_scene = true
 albedo_texture = SubResource("ViewportTexture_o6xl0")
+normal_scale = 5.1
+rim_enabled = true
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_monitor_click"]
 size = Vector3(0.8, 0.5, 0.1)
@@ -143,7 +132,7 @@ shadow_enabled = true
 environment = SubResource("Environment_sugp2")
 
 [node name="globe" type="CSGSphere3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1190357, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2190356, 0)
 radius = 0.82
 radial_segments = 100
 rings = 100
@@ -156,43 +145,52 @@ use_collision = true
 transform = Transform3D(-4.3711385e-08, 0, 0.99999994, 0, 1, 0, -0.99999994, 0, -4.3711385e-08, -3.6, 1.1, 0)
 use_collision = true
 size = Vector3(7, 2.2, 0.2)
+material = ExtResource("6_85g3d")
 
 [node name="wall2" type="CSGBox3D" parent="room_walls"]
 transform = Transform3D(-4.3711385e-08, 0, 0.99999994, 0, 1, 0, -0.99999994, 0, -4.3711385e-08, 3.6, 1.1, 0)
 use_collision = true
 size = Vector3(7, 2.2, 0.2)
+material = ExtResource("7_tipki")
 
 [node name="wall3" type="CSGBox3D" parent="room_walls"]
 transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, 0, 1.1, -3.6)
 use_collision = true
 size = Vector3(7, 2.2, 0.2)
+material = ExtResource("6_85g3d")
 
 [node name="wall4" type="CSGBox3D" parent="room_walls"]
 transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, 0, 1.1, 3.6)
 use_collision = true
 size = Vector3(7, 2.2, 0.2)
+material = ExtResource("6_85g3d")
 
 [node name="base" type="CSGBox3D" parent="room_walls"]
 use_collision = true
 size = Vector3(7, 0.1, 7)
+material = ExtResource("8_85g3d")
 
 [node name="top" type="CSGBox3D" parent="room_walls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.2, 0)
 use_collision = true
 size = Vector3(7, 0.1, 7)
+material = ExtResource("8_85g3d")
 
 [node name="curve_table" type="CSGTorus3D" parent="room_walls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
+material_override = ExtResource("7_tipki")
 use_collision = true
 inner_radius = 0.7
 outer_radius = 1.1
 sides = 64
 ring_sides = 64
+material = ExtResource("6_85g3d")
 
 [node name="curvewall1" type="CSGBox3D" parent="room_walls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.7499995, 0.88812447, -2.6499999)
 use_collision = true
 size = Vector3(1.7, 2.8, 1.7)
+material = ExtResource("6_85g3d")
 
 [node name="CSGCylinder3D" type="CSGCylinder3D" parent="room_walls/curvewall1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6500001, 0.21187556, 0.54999995)
@@ -205,6 +203,7 @@ sides = 40
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 2.6499996, 0.88812447, 2.75)
 use_collision = true
 size = Vector3(1.7, 2.8, 1.7)
+material = SubResource("StandardMaterial3D_trceg")
 
 [node name="CSGCylinder3D" type="CSGCylinder3D" parent="room_walls/curvewall2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6500001, 0.21187556, 0.54999995)
@@ -256,7 +255,7 @@ size = Vector3(0.78, 0.44, 0.01)
 material = SubResource("StandardMaterial3D_tipki")
 
 [node name="MonitorClickArea" type="Area3D" parent="DesktopStation"]
-transform = Transform3D(0.99999994, -1.7763568e-15, -7.1054274e-15, 0, 0.9781476, -0.20791163, 7.1054274e-15, 0.20791161, 0.97814757, 0, 0.7, 0)
+transform = Transform3D(0.99999994, -1.4773011e-15, -6.9501573e-15, 0, 0.9781476, -0.2079116, 7.1054274e-15, 0.20791161, 0.97814757, 0, 0.7, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="DesktopStation/MonitorClickArea"]
 transform = Transform3D(1, -5.3290705e-15, -7.1054274e-15, 8.881784e-15, 1.0000002, -1.1920929e-07, 6.3948846e-14, 1.6391277e-07, 1.0000002, 0, 0.07725954, -0.26178718)
@@ -300,8 +299,10 @@ shape = SubResource("BoxShape3D_guard_wall_ew")
 
 [node name="GlobeLight" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.35, 0)
-light_color = Color(0.2, 0.9, 1, 1)
-light_energy = 1.6
+light_color = Color(0.2901961, 1, 1, 1)
+light_energy = 0.05
+light_indirect_energy = 1.15
+light_volumetric_fog_energy = 4.55
 
 [node name="HUD" type="CanvasLayer" parent="."]
 
@@ -318,3 +319,24 @@ offset_bottom = 3.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.9, 1, 1, 0.95)
+metadata/_edit_use_anchors_ = true
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.3, 1.1, -2.3)
+light_color = Color(1, 0.05288527, 0.34729275, 1)
+light_energy = 0.1
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.60000014, 1.1, -2.3)
+light_color = Color(1, 0.05288527, 0.34729275, 1)
+light_energy = 0.1
+
+[node name="OmniLight3D3" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.60000014, 1.1, 1.5)
+light_color = Color(1, 0.05288527, 0.34729275, 1)
+light_energy = 0.1
+
+[node name="OmniLight3D4" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.1999998, 1.1, 1.5)
+light_color = Color(1, 0.05288527, 0.34729275, 1)
+light_energy = 0.1
