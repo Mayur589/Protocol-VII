@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://cd3mgymky06sp"
 path.s3tc="res://.godot/imported/Metal032_2K-JPG_Displacement.jpg-ce1bc2f0a690e4c3fd0d122f4305b206.s3tc.ctex"
+path.etc2="res://.godot/imported/Metal032_2K-JPG_Displacement.jpg-ce1bc2f0a690e4c3fd0d122f4305b206.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://textures/Metal032_2K-JPG/Metal032_2K-JPG_Displacement.jpg"
-dest_files=["res://.godot/imported/Metal032_2K-JPG_Displacement.jpg-ce1bc2f0a690e4c3fd0d122f4305b206.s3tc.ctex"]
+dest_files=["res://.godot/imported/Metal032_2K-JPG_Displacement.jpg-ce1bc2f0a690e4c3fd0d122f4305b206.s3tc.ctex", "res://.godot/imported/Metal032_2K-JPG_Displacement.jpg-ce1bc2f0a690e4c3fd0d122f4305b206.etc2.ctex"]
 
 [params]
 

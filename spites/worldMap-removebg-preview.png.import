@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://bg4bhprddxrna"
 path.s3tc="res://.godot/imported/worldMap-removebg-preview.png-46b5e0dc0f08377a6a2785cb47861237.s3tc.ctex"
+path.etc2="res://.godot/imported/worldMap-removebg-preview.png-46b5e0dc0f08377a6a2785cb47861237.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://spites/worldMap-removebg-preview.png"
-dest_files=["res://.godot/imported/worldMap-removebg-preview.png-46b5e0dc0f08377a6a2785cb47861237.s3tc.ctex"]
+dest_files=["res://.godot/imported/worldMap-removebg-preview.png-46b5e0dc0f08377a6a2785cb47861237.s3tc.ctex", "res://.godot/imported/worldMap-removebg-preview.png-46b5e0dc0f08377a6a2785cb47861237.etc2.ctex"]
 
 [params]
 

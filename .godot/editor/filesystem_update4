@@ -1,5 +1,0 @@
-res://scenes/main.tscn
-res://Shader/desktop.gdshader
-res://Shader/globe_procedural_continents.gdshader
-res://Shader/continent_glow.gdshader
-res://Shader/globe_lit_control.gdshader

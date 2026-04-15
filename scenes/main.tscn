@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://4lt68pdydgsk"]
+[gd_scene load_steps=34 format=3 uid="uid://4lt68pdydgsk"]
 
 [ext_resource type="PackedScene" uid="uid://ygna2002qt13" path="res://scenes/3D/player_controller.tscn" id="2_0wfyh"]
 [ext_resource type="PackedScene" uid="uid://8evtfrt3nnqh" path="res://scenes/notification_log.tscn" id="2_jyhfs"]
@@ -10,6 +10,7 @@
 [ext_resource type="Material" path="res://textures/Metal055A_2K-JPG/Metal055A_2K-JPG.tres" id="7_tipki"]
 [ext_resource type="Material" path="res://textures/Metal032_2K-JPG/Metal032_2K-JPG.tres" id="8_85g3d"]
 [ext_resource type="Shader" uid="uid://doltjxb4kbn15" path="res://Shader/globe_lit_control.gdshader" id="9_globe_lit"]
+[ext_resource type="PackedScene" uid="uid://c4qw8obnhld2c" path="res://server.glb" id="11_ya4ey"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_o5qli"]
 sky_top_color = Color(0.003921569, 0.011764706, 0.03137255, 1)
@@ -96,8 +97,63 @@ size = Vector3(8.6, 3, 0.6)
 [sub_resource type="BoxShape3D" id="BoxShape3D_guard_wall_ew"]
 size = Vector3(0.6, 3, 8.6)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_menu_card"]
+bg_color = Color(0.03137255, 0.050980393, 0.08627451, 0.88)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.19607843, 0.7607843, 1, 0.55)
+corner_radius_top_left = 14
+corner_radius_top_right = 14
+corner_radius_bottom_right = 14
+corner_radius_bottom_left = 14
+shadow_color = Color(0, 0, 0, 0.45)
+shadow_size = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_menu_button_normal"]
+bg_color = Color(0.03137255, 0.11372549, 0.18431373, 0.95)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.12156863, 0.74509805, 1, 0.6)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_menu_button_pressed"]
+bg_color = Color(0.015686275, 0.078431375, 0.13333334, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.3372549, 0.8392157, 1, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_menu_button_hover"]
+bg_color = Color(0.05490196, 0.20392157, 0.3137255, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.4, 0.8862745, 1, 0.95)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ya4ey"]
+transparency = 1
+blend_mode = 3
+
 [node name="Main" type="Node3D"]
 script = ExtResource("2_maingd")
+monitor_click_range = 2.0
 
 [node name="StatsViewport" type="SubViewport" parent="."]
 disable_3d = true
@@ -321,6 +377,302 @@ grow_vertical = 2
 color = Color(0.9, 1, 1, 0.95)
 metadata/_edit_use_anchors_ = true
 
+[node name="MainMenu" type="CanvasLayer" parent="."]
+layer = 10
+
+[node name="Backdrop" type="ColorRect" parent="MainMenu"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.003921569, 0.011764706, 0.023529412, 0.78)
+metadata/_edit_use_anchors_ = true
+
+[node name="ScanlineTint" type="ColorRect" parent="MainMenu"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0.9411765, 1, 0.06)
+metadata/_edit_use_anchors_ = true
+
+[node name="MenuCenter" type="CenterContainer" parent="MainMenu"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="MenuCard" type="PanelContainer" parent="MainMenu/MenuCenter"]
+custom_minimum_size = Vector2(560, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_menu_card")
+
+[node name="ContentMargin" type="MarginContainer" parent="MainMenu/MenuCenter/MenuCard"]
+layout_mode = 2
+theme_override_constants/margin_left = 36
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 36
+theme_override_constants/margin_bottom = 30
+
+[node name="Content" type="VBoxContainer" parent="MainMenu/MenuCenter/MenuCard/ContentMargin"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Tagline" type="Label" parent="MainMenu/MenuCenter/MenuCard/ContentMargin/Content"]
+modulate = Color(0.49019608, 0.8980392, 1, 1)
+layout_mode = 2
+text = "TACTICAL INTERFACE"
+horizontal_alignment = 1
+uppercase = true
+
+[node name="Title" type="Label" parent="MainMenu/MenuCenter/MenuCard/ContentMargin/Content"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 56
+text = "PROTOCOL VII"
+horizontal_alignment = 1
+
+[node name="Subtitle" type="Label" parent="MainMenu/MenuCenter/MenuCard/ContentMargin/Content"]
+modulate = Color(0.7882353, 0.8509804, 0.91764706, 0.95)
+layout_mode = 2
+text = "Command Node Awaiting Authorization"
+horizontal_alignment = 1
+
+[node name="Spacer" type="Control" parent="MainMenu/MenuCenter/MenuCard/ContentMargin/Content"]
+custom_minimum_size = Vector2(0, 6)
+layout_mode = 2
+
+[node name="StartButton" type="Button" parent="MainMenu/MenuCenter/MenuCard/ContentMargin/Content"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85490197, 0.9607843, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_menu_button_normal")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_menu_button_pressed")
+theme_override_styles/hover = SubResource("StyleBoxFlat_menu_button_hover")
+text = "ENTER WAR ROOM"
+
+[node name="BriefingButton" type="Button" parent="MainMenu/MenuCenter/MenuCard/ContentMargin/Content"]
+custom_minimum_size = Vector2(0, 44)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85490197, 0.9607843, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBoxFlat_menu_button_normal")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_menu_button_pressed")
+theme_override_styles/hover = SubResource("StyleBoxFlat_menu_button_hover")
+text = "MISSION BRIEFING"
+
+[node name="ExitButton" type="Button" parent="MainMenu/MenuCenter/MenuCard/ContentMargin/Content"]
+custom_minimum_size = Vector2(0, 44)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.8627451, 0.8627451, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBoxFlat_menu_button_normal")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_menu_button_pressed")
+theme_override_styles/hover = SubResource("StyleBoxFlat_menu_button_hover")
+text = "DISCONNECT"
+
+[node name="Hint" type="Label" parent="MainMenu/MenuCenter/MenuCard/ContentMargin/Content"]
+modulate = Color(0.78039217, 0.8784314, 0.9372549, 0.82)
+layout_mode = 2
+text = "Esc toggles cursor during gameplay"
+horizontal_alignment = 1
+
+[node name="BriefingPanel" type="PanelContainer" parent="MainMenu"]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -270.0
+offset_top = -145.0
+offset_right = 270.0
+offset_bottom = 145.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_menu_card")
+
+[node name="BriefingMargin" type="MarginContainer" parent="MainMenu/BriefingPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 28
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 28
+theme_override_constants/margin_bottom = 24
+
+[node name="BriefingContent" type="VBoxContainer" parent="MainMenu/BriefingPanel/BriefingMargin"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="BriefingTitle" type="Label" parent="MainMenu/BriefingPanel/BriefingMargin/BriefingContent"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Mission Briefing"
+horizontal_alignment = 1
+
+[node name="BriefingBody" type="RichTextLabel" parent="MainMenu/BriefingPanel/BriefingMargin/BriefingContent"]
+custom_minimum_size = Vector2(0, 112)
+layout_mode = 2
+bbcode_enabled = true
+text = "[center]Secure every continent by solving puzzle sequences.
+Each victory pushes domination upward, while failed attempts empower Omni.
+Use the terminal and map from the desktop station to execute your campaign.[/center]"
+fit_content = true
+scroll_active = false
+
+[node name="CloseBriefingButton" type="Button" parent="MainMenu/BriefingPanel/BriefingMargin/BriefingContent"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85490197, 0.9607843, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 17
+theme_override_styles/normal = SubResource("StyleBoxFlat_menu_button_normal")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_menu_button_pressed")
+theme_override_styles/hover = SubResource("StyleBoxFlat_menu_button_hover")
+text = "RETURN"
+
+[node name="PauseBackdrop" type="ColorRect" parent="MainMenu"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.003921569, 0.011764706, 0.023529412, 0.56)
+metadata/_edit_use_anchors_ = true
+
+[node name="PausePanel" type="PanelContainer" parent="MainMenu"]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -265.0
+offset_top = -185.0
+offset_right = 265.0
+offset_bottom = 185.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_menu_card")
+
+[node name="PauseMargin" type="MarginContainer" parent="MainMenu/PausePanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 28
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 28
+theme_override_constants/margin_bottom = 24
+
+[node name="PauseContent" type="VBoxContainer" parent="MainMenu/PausePanel/PauseMargin"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="PauseTitle" type="Label" parent="MainMenu/PausePanel/PauseMargin/PauseContent"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 34
+text = "PAUSED"
+horizontal_alignment = 1
+
+[node name="PauseSubtitle" type="Label" parent="MainMenu/PausePanel/PauseMargin/PauseContent"]
+modulate = Color(0.77254903, 0.8745098, 0.94509804, 0.85)
+layout_mode = 2
+text = "Operations suspended"
+horizontal_alignment = 1
+
+[node name="OptionsHeader" type="Label" parent="MainMenu/PausePanel/PauseMargin/PauseContent"]
+layout_mode = 2
+text = "OPTIONS"
+
+[node name="SensitivityRow" type="HBoxContainer" parent="MainMenu/PausePanel/PauseMargin/PauseContent"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="SensitivityLabel" type="Label" parent="MainMenu/PausePanel/PauseMargin/PauseContent/SensitivityRow"]
+custom_minimum_size = Vector2(130, 0)
+layout_mode = 2
+text = "Mouse Sens"
+
+[node name="SensitivitySlider" type="HSlider" parent="MainMenu/PausePanel/PauseMargin/PauseContent/SensitivityRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 0.0008
+max_value = 0.004
+step = 0.0001
+value = 0.0014
+
+[node name="SensitivityValue" type="Label" parent="MainMenu/PausePanel/PauseMargin/PauseContent/SensitivityRow"]
+custom_minimum_size = Vector2(58, 0)
+layout_mode = 2
+text = "1.40"
+horizontal_alignment = 2
+
+[node name="VolumeRow" type="HBoxContainer" parent="MainMenu/PausePanel/PauseMargin/PauseContent"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="VolumeLabel" type="Label" parent="MainMenu/PausePanel/PauseMargin/PauseContent/VolumeRow"]
+custom_minimum_size = Vector2(130, 0)
+layout_mode = 2
+text = "Master Vol"
+
+[node name="VolumeSlider" type="HSlider" parent="MainMenu/PausePanel/PauseMargin/PauseContent/VolumeRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+value = 80.0
+
+[node name="VolumeValue" type="Label" parent="MainMenu/PausePanel/PauseMargin/PauseContent/VolumeRow"]
+custom_minimum_size = Vector2(58, 0)
+layout_mode = 2
+text = "80%"
+horizontal_alignment = 2
+
+[node name="PauseButtonSpacer" type="Control" parent="MainMenu/PausePanel/PauseMargin/PauseContent"]
+custom_minimum_size = Vector2(0, 6)
+layout_mode = 2
+
+[node name="ResumeButton" type="Button" parent="MainMenu/PausePanel/PauseMargin/PauseContent"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85490197, 0.9607843, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_menu_button_normal")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_menu_button_pressed")
+theme_override_styles/hover = SubResource("StyleBoxFlat_menu_button_hover")
+text = "RESUME"
+
+[node name="ReturnToMenuButton" type="Button" parent="MainMenu/PausePanel/PauseMargin/PauseContent"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85490197, 0.9607843, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_menu_button_normal")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_menu_button_pressed")
+theme_override_styles/hover = SubResource("StyleBoxFlat_menu_button_hover")
+text = "MAIN MENU"
+
+[node name="PauseExitButton" type="Button" parent="MainMenu/PausePanel/PauseMargin/PauseContent"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.8627451, 0.8627451, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_menu_button_normal")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_menu_button_pressed")
+theme_override_styles/hover = SubResource("StyleBoxFlat_menu_button_hover")
+text = "QUIT GAME"
+
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.3, 1.1, -2.3)
 light_color = Color(1, 0.05288527, 0.34729275, 1)
@@ -340,3 +692,23 @@ light_energy = 0.1
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.1999998, 1.1, 1.5)
 light_color = Color(1, 0.05288527, 0.34729275, 1)
 light_energy = 0.1
+
+[node name="server2" parent="." instance=ExtResource("11_ya4ey")]
+transform = Transform3D(-1.4424759e-10, 0, -0.0035999997, 0, 0.0039999997, 0, 0.0033000002, 0, -1.5736099e-10, -3.2867599, 0, -3.1070004)
+
+[node name="server3" parent="." instance=ExtResource("11_ya4ey")]
+transform = Transform3D(-1.4424759e-10, 0, -0.0035999997, 0, 0.0039999997, 0, 0.0033000002, 0, -1.5736099e-10, -3.2867599, 0.9711999, -3.1070004)
+
+[node name="Glass" type="CSGBox3D" parent="."]
+transform = Transform3D(3.0240002, 0, 0, 0, 3.5200002, 0, 0, 0, 0.39999998, -2.8500001, 1.0560001, -2.6000001)
+transparency = 1.0
+gi_lightmap_texel_scale = 0.01
+use_collision = true
+size = Vector3(0.7, 1, 0.2)
+material = SubResource("StandardMaterial3D_ya4ey")
+
+[node name="Glass2" type="CSGBox3D" parent="."]
+transform = Transform3D(-5.28733e-08, 0, 0.39999998, 0, 3.5200002, 0, -1.2096001, 0, -1.7484554e-08, -1.858, 1.0560001, -3.0838401)
+use_collision = true
+size = Vector3(0.7, 1, 0.2)
+material = SubResource("StandardMaterial3D_ya4ey")

@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://dw125koxofkpn"
 path.s3tc="res://.godot/imported/worldMap.jpg-71b0810cd9cf6c9d995d69df378453f3.s3tc.ctex"
+path.etc2="res://.godot/imported/worldMap.jpg-71b0810cd9cf6c9d995d69df378453f3.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://spites/worldMap.jpg"
-dest_files=["res://.godot/imported/worldMap.jpg-71b0810cd9cf6c9d995d69df378453f3.s3tc.ctex"]
+dest_files=["res://.godot/imported/worldMap.jpg-71b0810cd9cf6c9d995d69df378453f3.s3tc.ctex", "res://.godot/imported/worldMap.jpg-71b0810cd9cf6c9d995d69df378453f3.etc2.ctex"]
 
 [params]
 

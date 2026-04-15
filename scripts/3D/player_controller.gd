@@ -10,16 +10,26 @@ extends Node3D
 var _pitch_radians: float = 0.0
 
 func _ready() -> void:
-	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	_set_look_mouse_mode()
 	body.floor_stop_on_slope = true
 	body.safe_margin = 0.03
 
-func _unhandled_input(event: InputEvent) -> void:
-	if event is InputEventMouseMotion and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
+func _input(event: InputEvent) -> void:
+	if event is InputEventMouseMotion and _is_look_mouse_mode(Input.get_mouse_mode()):
 		_handle_mouse_look(event.relative)
 
-	if event.is_action_pressed("ui_cancel"):
-		_toggle_mouse_mode()
+func _unhandled_input(event: InputEvent) -> void:
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.is_pressed():
+		if not _is_look_mouse_mode(Input.get_mouse_mode()):
+			_set_look_mouse_mode()
+			return
+
+	if event is InputEventMouseMotion and _is_look_mouse_mode(Input.get_mouse_mode()):
+		_handle_mouse_look(event.relative)
+
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_APPLICATION_FOCUS_IN:
+		_set_look_mouse_mode()
 
 func _physics_process(delta: float) -> void:
 	_apply_gravity(delta)
@@ -33,11 +43,13 @@ func _handle_mouse_look(relative: Vector2) -> void:
 	_pitch_radians = clamp(_pitch_radians - relative.y * mouse_sensitivity, -max_pitch, max_pitch)
 	head.rotation.x = _pitch_radians
 
-func _toggle_mouse_mode() -> void:
-	if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
-		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-	else:
-		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+func _set_look_mouse_mode() -> void:
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	if Input.get_mouse_mode() != Input.MOUSE_MODE_CAPTURED:
+		Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED_HIDDEN)
+
+func _is_look_mouse_mode(mode: Input.MouseMode) -> bool:
+	return mode == Input.MOUSE_MODE_CAPTURED or mode == Input.MOUSE_MODE_CONFINED_HIDDEN
 
 func _apply_gravity(delta: float) -> void:
 	if body.is_on_floor():

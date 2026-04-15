@@ -7,9 +7,9 @@
 [ext_resource type="Texture2D" uid="uid://dtenviedqswac" path="res://spites/Flag.png" id="3_dcrhm"]
 [ext_resource type="Texture2D" uid="uid://ctbqq6e3hf0nr" path="res://spites/PatchInverted.png" id="3_ox5hf"]
 [ext_resource type="Shader" uid="uid://q271m6wpn8ab" path="res://Shader/desktop.gdshader" id="5_dcrhm"]
-[ext_resource type="Texture2D" uid="uid://ddqfe0kk133no" path="res://spites/map.png" id="6_6ajoh"]
-[ext_resource type="Texture2D" uid="uid://c1wxs11gx512k" path="res://spites/Window.png" id="7_stats"]
-[ext_resource type="Texture2D" uid="uid://cw7qeydngpdvd" path="res://spites/terminal.png" id="8_notifications"]
+[ext_resource type="Texture2D" uid="uid://bxwg3trmyvqn0" path="res://spites/map_red_btn.png" id="8_q2hki"]
+[ext_resource type="Texture2D" uid="uid://sgc0e4okc4bq" path="res://spites/stat.png" id="9_q2hki"]
+[ext_resource type="Texture2D" uid="uid://dl7mxhbmsbish" path="res://spites/notification.png" id="10_q2hki"]
 [ext_resource type="PackedScene" uid="uid://cpnroma15ljox" path="res://music/select_audio.tscn" id="10_vcvwy"]
 [ext_resource type="PackedScene" uid="uid://b4swgyt3vdymh" path="res://music/menu_selection.tscn" id="11_nikxi"]
 
@@ -155,10 +155,10 @@ mouse_filter = 2
 [node name="Map" type="Button" parent="."]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 0
-offset_left = 59.0
-offset_top = 79.0
-offset_right = 178.0
-offset_bottom = 189.0
+offset_left = 60.0
+offset_top = 33.0
+offset_right = 179.0
+offset_bottom = 154.0
 size_flags_horizontal = 2
 size_flags_vertical = 0
 
@@ -167,56 +167,82 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = -1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("6_6ajoh")
-expand_mode = 1
+texture = ExtResource("8_q2hki")
+expand_mode = 2
 stretch_mode = 4
 
 [node name="Stats" type="Button" parent="."]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 0
-offset_left = 59.0
+offset_left = 64.0
 offset_top = 210.0
-offset_right = 178.0
-offset_bottom = 320.0
+offset_right = 180.0
+offset_bottom = 326.0
 size_flags_horizontal = 2
 size_flags_vertical = 0
 
-[node name="TextureRect" type="TextureRect" parent="Stats"]
+[node name="MarginContainer" type="MarginContainer" parent="Stats"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = -1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("7_stats")
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="TextureRect" type="TextureRect" parent="Stats/MarginContainer"]
+layout_mode = 2
+texture = ExtResource("9_q2hki")
 expand_mode = 1
 stretch_mode = 4
 
 [node name="Notifications" type="Button" parent="."]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 0
-offset_left = 59.0
-offset_top = 340.0
-offset_right = 178.0
-offset_bottom = 450.0
+offset_left = 73.0
+offset_top = 379.0
+offset_right = 193.0
+offset_bottom = 504.0
 size_flags_horizontal = 2
 size_flags_vertical = 0
 
-[node name="TextureRect" type="TextureRect" parent="Notifications"]
+[node name="MarginContainer" type="MarginContainer" parent="Notifications"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = -1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("8_notifications")
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="TextureRect" type="TextureRect" parent="Notifications/MarginContainer"]
+layout_mode = 2
+texture = ExtResource("10_q2hki")
 expand_mode = 1
 stretch_mode = 4
+
+[node name="close" type="Button" parent="."]
+layout_mode = 0
+offset_left = 1670.0
+offset_top = 43.0
+offset_right = 1852.0
+offset_bottom = 140.0
+
+[node name="TextureRect" type="TextureRect" parent="close"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="annoyWindow" type="Window" parent="."]
 oversampling_override = 1.0

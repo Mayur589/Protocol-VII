@@ -8,6 +8,7 @@ extends Control
 @onready var notifications: Button = $Notifications
 @onready var select_audio: AudioStreamPlayer = $select_audio
 @onready var menu_selection: AudioStreamPlayer = $menu_selection
+@onready var close: Button = $close
 
 var shake_tween: Tween
 var original_position: Vector2
@@ -18,11 +19,28 @@ func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	annoy_window.visible = false
 	original_position = position
-	start_button.connect("button_down", _on_start_button_pressed)
+	_ensure_button_click_passthrough(start_button)
+	_ensure_button_click_passthrough(map)
+	_ensure_button_click_passthrough(stats)
+	_ensure_button_click_passthrough(notifications)
+	_ensure_button_click_passthrough(close)
+	start_button.pressed.connect(_on_start_button_pressed)
 	annoy_window.connect("close_requested", _on_close_annoy_window)
-	map.connect("button_down", _on_map_clicked)
-	stats.connect("button_down", _on_stats_clicked)
-	notifications.connect("button_down", _on_notifications_clicked)
+	map.pressed.connect(_on_map_clicked)
+	stats.pressed.connect(_on_stats_clicked)
+	notifications.pressed.connect(_on_notifications_clicked)
+	close.pressed.connect(_on_close_clicked)
+
+func _ensure_button_click_passthrough(button: BaseButton) -> void:
+	for child in button.get_children():
+		_set_control_mouse_ignore_recursive(child)
+
+func _set_control_mouse_ignore_recursive(node: Node) -> void:
+	if node is Control:
+		node.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	for child in node.get_children():
+		_set_control_mouse_ignore_recursive(child)
+	
 
 func _on_start_button_pressed():
 	allow -= 1
@@ -54,13 +72,8 @@ func _on_notifications_clicked():
 	await get_tree().create_timer(0.1).timeout
 	get_tree().change_scene_to_file("res://scenes/notification_log.tscn")
 
-func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("ui_cancel"):
-		_return_to_main()
-		return
-
-	if event is InputEventKey and event.pressed and event.keycode == KEY_ESCAPE:
-		_return_to_main()
+func _on_close_clicked() -> void:
+	_return_to_main()
 
 func _return_to_main() -> void:
 	var viewport := get_viewport()
