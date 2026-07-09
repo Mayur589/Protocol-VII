@@ -92,3 +92,12 @@ Every continent you target presents unique technical challenges. Successfully co
 - **Mouse Cursor**: Point and click to select apps or run programs.
 - **Keyboard Input**: Submit text inside LineEdits when solving command-line challenges.
 - **Close Button (Red Arrow Icon)**: Return from the desktop back to 3D room movement.
+
+---
+
+## Contributors
+
+- [Mayur Patel](https://github.com/Mayur589)
+- [Jerin Cherian](https://github.com/Cod-E-Tron701)
+- [Raj Thakkar](https://github.com/rajthakkar29)
+
